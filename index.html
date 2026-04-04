@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Restaurant Voyage - Paradise of Flavours</title>
+<meta name="description" content="Restaurant Voyage - Paradise of Flavours. Str. 1 Decembrie 1918 nr. 6, Carei." />
+<link rel="icon" type="image/svg+xml" href="voyage-favicon.svg" />
+<link rel="shortcut icon" href="voyage-favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --navy:       #0b1120;
+  --navy-mid:   #0f1a2e;
+  --navy-light: #162240;
+  --gold:       #c9a84c;
+  --gold-light: #e2c97e;
+  --gold-dim:   #8a6e32;
+  --cream:      #f5f0e8;
+  --cream-dim:  #c8bfaa;
+  --white:      #ffffff;
+  --text-body:  #b8c4d4;
+  --ff-display: 'Cinzel', serif;
+  --ff-serif:   'Cormorant Garamond', serif;
+  --ff-sans:    'Raleway', sans-serif;
+  --trans: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--navy); color: var(--cream); font-family: var(--ff-serif); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.section-label { font-family: var(--ff-sans); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.section-title { font-family: var(--ff-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 24px; }
+.divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 auto 40px; }
+.btn { display: inline-block; font-family: var(--ff-sans); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; padding: 14px 40px; border: 1px solid var(--gold); color: var(--gold); background: transparent; cursor: pointer; transition: var(--trans); position: relative; overflow: hidden; }
+.btn::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform var(--trans); z-index: 0; }
+.btn:hover::before { transform: scaleX(1); }
+.btn span { position: relative; z-index: 1; transition: color var(--trans); }
+.btn:hover span { color: var(--navy); }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.35; }
+
+/* NAVBAR */
+#navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 900; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 80px; transition: background var(--trans); }
+#navbar.scrolled { background: rgba(11,17,32,0.96); border-bottom: 1px solid rgba(201,168,76,0.15); backdrop-filter: blur(12px); }
+.nav-logo { font-family: var(--ff-display); font-size: 18px; letter-spacing: 3px; color: var(--white); font-weight: 500; }
+.nav-logo span { color: var(--gold); }
+.nav-right { display: flex; align-items: center; }
+.nav-links { display: flex; gap: 36px; align-items: center; }
+.nav-links a { font-family: var(--ff-sans); font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--cream-dim); transition: color var(--trans); position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform var(--trans); }
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { transform: scaleX(1); }
+#lang-switcher { display: flex; align-items: center; margin-left: 28px; padding-left: 24px; border-left: 1px solid rgba(201,168,76,0.2); }
+.lang-btn { font-family: var(--ff-sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-dim); background: transparent; border: none; padding: 4px 9px; cursor: pointer; transition: color var(--trans); }
+.lang-btn + .lang-btn { border-left: 1px solid rgba(201,168,76,0.15); }
+.lang-btn:hover { color: var(--gold); }
+.lang-btn.active { color: var(--gold); font-weight: 500; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: transparent; border: none; }
+.hamburger span { display: block; width: 24px; height: 1px; background: var(--gold); transition: var(--trans); }
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(11,17,32,0.98); z-index: 800; flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--ff-display); font-size: 26px; letter-spacing: 4px; color: var(--cream); transition: color var(--trans); }
+.mobile-menu a:hover { color: var(--gold); }
+.mobile-lang { display: flex; border: 1px solid rgba(201,168,76,0.25); }
+.mobile-lang button { font-family: var(--ff-sans); font-size: 13px; letter-spacing: 2px; color: var(--cream-dim); background: transparent; border: none; padding: 10px 22px; cursor: pointer; transition: color var(--trans); }
+.mobile-lang button + button { border-left: 1px solid rgba(201,168,76,0.2); }
+.mobile-lang button:hover, .mobile-lang button.mlang-active { color: var(--gold); }
+
+/* HERO */
+#hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; text-align: center; }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%), linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy) 100%); }
+.hero-logo-bg { position: absolute; inset: 0; z-index: 1; background-image: url('embedded-image-01.png'); background-repeat: no-repeat; background-position: center center; background-size: 65%; opacity: 0.13; filter: blur(1.5px); pointer-events: none; }
+.hero-bg::before { content: ''; position: absolute; width: 700px; height: 700px; border: 1px solid rgba(201,168,76,0.07); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.hero-bg::after { content: ''; position: absolute; width: 950px; height: 950px; border: 1px solid rgba(201,168,76,0.04); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 32px; animation: fadeUp 1.4s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.hero-logo-wrap { margin-bottom: 40px; }
+.hero-logo-wrap img { width: 200px; height: auto; margin: 0 auto; filter: drop-shadow(0 0 30px rgba(201,168,76,0.2)); }
+.hero-eyebrow { font-family: var(--ff-sans); font-size: 10px; letter-spacing: 6px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.hero-title { font-family: var(--ff-display); font-size: clamp(3rem, 8vw, 6rem); font-weight: 400; letter-spacing: 6px; color: var(--white); line-height: 1.05; margin-bottom: 12px; }
+.hero-sub { font-family: var(--ff-sans); font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 40px; }
+.hero-tagline { font-family: var(--ff-serif); font-size: clamp(1rem, 2vw, 1.3rem); font-style: italic; color: var(--cream-dim); margin-bottom: 56px; }
+.scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; animation: bounce 2s infinite; }
+.scroll-hint span { font-family: var(--ff-sans); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-dim); }
+.scroll-hint::after { content: ''; display: block; width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold-dim), transparent); }
+@keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+/* ABOUT */
+#about { padding: 120px 0; }
+.about-grid { display: grid; grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: center; }
+.about-image-wrap { position: relative; }
+.about-image-box { width: 100%; aspect-ratio: 4/5; background: var(--navy-light); border: 1px solid rgba(201,168,76,0.15); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.about-image-box::before { content: ''; position: absolute; inset: 16px; border: 1px solid rgba(201,168,76,0.08); pointer-events: none; }
+.about-image-box img { width: 100%; height: 100%; object-fit: cover; }
+.about-copy { max-width: 640px; }
+.img-ph { display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.4; }
+.img-ph span { font-family: var(--ff-sans); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+.about-accent-box { position: absolute; bottom: 16px; left: 16px; width: 100px; height: 100px; background: rgba(11,17,32,0.85); border: 1px solid rgba(201,168,76,0.35); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; backdrop-filter: blur(4px); }
+.about-accent-box .year { font-family: var(--ff-display); font-size: 24px; color: var(--gold); line-height: 1; }
+.about-accent-box .year-label { font-family: var(--ff-sans); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--cream-dim); }
+.about-body { font-family: var(--ff-serif); font-size: 1.1rem; line-height: 1.85; color: var(--text-body); margin-bottom: 20px; }
+.about-features { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.about-feat { display: flex; gap: 14px; align-items: flex-start; }
+.feat-icon { width: 36px; height: 36px; flex-shrink: 0; border: 1px solid var(--gold-dim); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 16px; }
+.feat-label { font-family: var(--ff-sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--cream); margin-bottom: 4px; }
+.feat-sub { font-size: 0.85rem; color: var(--cream-dim); font-style: italic; }
+
+/* MENU */
+#menu { padding: 120px 0; background: var(--navy-mid); position: relative; }
+#menu::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); }
+#menu::after  { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); }
+.menu-header { text-align: center; margin-bottom: 64px; }
+.menu-tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 56px; }
+.menu-tab { font-family: var(--ff-sans); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; padding: 10px 24px; border: 1px solid rgba(201,168,76,0.25); color: var(--cream-dim); background: transparent; cursor: pointer; transition: var(--trans); }
+.menu-tab:hover { color: var(--gold); border-color: var(--gold); }
+.menu-tab.active { background: rgba(201,168,76,0.12); color: var(--gold); border-color: var(--gold); }
+.menu-tabs::-webkit-scrollbar { height: 0; }
+.menu-panel { display: none; }
+.menu-panel.active { display: block; }
+.menu-category-title { font-family: var(--ff-display); font-size: 1.3rem; letter-spacing: 3px; color: var(--gold); text-align: center; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid rgba(201,168,76,0.15); }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.menu-item { border: 1px solid rgba(201,168,76,0.12); background: rgba(11,17,32,0.6); transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans); overflow: hidden; }
+.menu-item:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+.item-img { width: 100%; aspect-ratio: 4/3; background: var(--navy-light); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.item-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; position: absolute; inset: 0; }
+.menu-item:hover .item-img img { transform: scale(1.05); }
+.item-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, rgba(11,17,32,0.6) 100%); pointer-events: none; z-index: 1; }
+.item-img-ph { display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.3; z-index: 0; }
+.item-img-ph span { font-family: var(--ff-sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+.item-body { padding: 18px 20px 22px; }
+.item-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+.item-name { font-family: var(--ff-display); font-size: 1rem; font-weight: 400; color: var(--white); letter-spacing: 1px; }
+.item-price { font-family: var(--ff-sans); font-size: 13px; color: var(--gold); letter-spacing: 1px; white-space: nowrap; flex-shrink: 0; }
+.item-desc { font-family: var(--ff-serif); font-size: 0.9rem; font-style: italic; color: var(--text-body); line-height: 1.6; }
+
+/* GALLERY */
+#gallery { padding: 120px 0; }
+.gallery-header { text-align: center; margin-bottom: 64px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gallery-cell { aspect-ratio: 4/3; background: var(--navy-light); border: 1px solid rgba(201,168,76,0.08); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: pointer; transition: border-color var(--trans); }
+.gallery-cell:nth-child(1) { grid-column: span 1; aspect-ratio: 4/3; }
+.gallery-cell:nth-child(5) { grid-column: span 1; aspect-ratio: 4/3; }
+.gallery-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; position: absolute; inset: 0; }
+.gallery-cell:hover { border-color: rgba(201,168,76,0.35); }
+.gallery-cell:hover img { transform: scale(1.04); }
+.gallery-overlay { position: absolute; inset: 0; background: rgba(201,168,76,0.07); opacity: 0; transition: opacity var(--trans); pointer-events: none; z-index: 2; }
+.gallery-cell:hover .gallery-overlay { opacity: 1; }
+.gallery-ph { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.gallery-ph span { font-family: var(--ff-sans); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-dim); }
+
+/* CONTACT */
+#contact { padding: 120px 0; background: var(--navy-mid); position: relative; }
+#contact::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); }
+.contact-header { text-align: center; margin-bottom: 72px; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-block { margin-bottom: 40px; display: flex; gap: 20px; align-items: flex-start; }
+.contact-icon { width: 48px; height: 48px; flex-shrink: 0; border: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; color: var(--gold); }
+.contact-label { font-family: var(--ff-sans); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.contact-value { font-family: var(--ff-serif); font-size: 1.1rem; color: var(--cream); line-height: 1.5; }
+.contact-value a { color: var(--cream); transition: color var(--trans); }
+.contact-value a:hover { color: var(--gold); }
+.hours-title { font-family: var(--ff-display); font-size: 1.1rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 28px; }
+.hours-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(201,168,76,0.08); }
+.hours-day { font-family: var(--ff-sans); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cream-dim); }
+.hours-time { font-family: var(--ff-serif); font-size: 1rem; color: var(--cream); }
+
+/* FOOTER */
+footer { padding: 56px 32px 48px; text-align: center; border-top: 1px solid rgba(201,168,76,0.1); }
+.footer-logo { font-family: var(--ff-display); font-size: 22px; letter-spacing: 4px; color: var(--white); margin-bottom: 8px; }
+.footer-sub { font-family: var(--ff-sans); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 28px; }
+.footer-legal { max-width: 1200px; margin: 0 auto 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; text-align: left; }
+.footer-card { background: rgba(15,26,46,0.72); border: 1px solid rgba(201,168,76,0.14); padding: 22px; border-radius: 18px; backdrop-filter: blur(8px); }
+.footer-card-title { font-family: var(--ff-sans); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+.footer-list { display: grid; gap: 10px; }
+.footer-list li { font-family: var(--ff-serif); font-size: 1rem; line-height: 1.55; color: var(--cream); }
+.footer-list strong { color: var(--white); font-weight: 600; }
+.footer-links { display: grid; gap: 10px; }
+.footer-links a { font-family: var(--ff-serif); font-size: 1rem; color: var(--cream); transition: color var(--trans); }
+.footer-links a:hover { color: var(--gold); }
+.footer-gdpr { max-width: 900px; margin: 0 auto 18px; font-family: var(--ff-sans); font-size: 11px; line-height: 1.7; letter-spacing: 1px; color: var(--cream-dim); }
+.footer-inline-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-bottom: 20px; }
+.footer-inline-links a { font-family: var(--ff-sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+.footer-copy { font-family: var(--ff-sans); font-size: 10px; letter-spacing: 1.5px; color: var(--cream-dim); opacity: 0.72; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .nav-links, #lang-switcher { display: none; }
+  .hamburger { display: flex; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-copy { max-width: none; }
+  .about-accent-box { display: flex; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .gallery-cell:nth-child(1), .gallery-cell:nth-child(5) { grid-column: span 1; aspect-ratio: 4/3; }
+  .footer-legal { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  #about, #menu, #gallery, #contact { padding: 80px 0; }
+  .container { padding: 0 20px; }
+  .menu-grid { grid-template-columns: 1fr; gap: 14px; }
+  .menu-tabs {
+    position: sticky;
+    top: 78px;
+    z-index: 40;
+    margin: 0 -20px 28px;
+    padding: 12px 20px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: rgba(15,26,46,0.96);
+    border-top: 1px solid rgba(201,168,76,0.12);
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    backdrop-filter: blur(10px);
+  }
+  .menu-tab {
+    flex: 0 0 auto;
+    font-size: 10px;
+    padding: 10px 14px;
+    letter-spacing: 1.2px;
+    white-space: nowrap;
+  }
+  .menu-category-title { margin-bottom: 24px; font-size: 1.1rem; }
+  .item-body { padding: 16px 16px 18px; }
+  .item-top { gap: 10px; margin-bottom: 6px; }
+  .item-name { font-size: 0.95rem; letter-spacing: 0.6px; }
+  .item-price { font-size: 12px; }
+  .item-desc { font-size: 0.92rem; line-height: 1.5; }
+  .about-grid { gap: 32px; }
+  .about-body { font-size: 1rem; line-height: 1.75; }
+  .about-features { grid-template-columns: 1fr; }
+  .hours-row { gap: 12px; align-items: flex-start; }
+  .hours-day, .hours-time { font-size: 0.95rem; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-cell { grid-column: span 1 !important; aspect-ratio: 4/3 !important; }
+  .footer-card { padding: 18px; }
+  .footer-inline-links { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">VOYAGE <span>·</span></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#hero"    data-i18n="nav_home">Acasă</a></li>
+      <li><a href="#about"   data-i18n="nav_about">Despre noi</a></li>
+      <li><a href="#menu"    data-i18n="nav_menu">Meniu</a></li>
+      <li><a href="#gallery" data-i18n="nav_gallery">Galerie</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div id="lang-switcher">
+      <button class="lang-btn active" data-lang="ro">RO</button>
+      <button class="lang-btn"        data-lang="hu">HU</button>
+      <button class="lang-btn"        data-lang="en">EN</button>
+    </div>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero"    data-i18n="nav_home">Acasă</a>
+  <a href="#about"   data-i18n="nav_about">Despre noi</a>
+  <a href="#menu"    data-i18n="nav_menu">Meniu</a>
+  <a href="#gallery" data-i18n="nav_gallery">Galerie</a>
+  <a href="#contact" data-i18n="nav_contact">Contact</a>
+  <div class="mobile-lang">
+    <button data-lang="ro">RO</button>
+    <button data-lang="hu">HU</button>
+    <button data-lang="en">EN</button>
+  </div>
+</div>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-logo-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-i18n="hero_eyebrow">EST. 2024 — CAREI, ROMÂNIA</p>
+    <h1 class="hero-title">VOYAGE</h1>
+    <p class="hero-sub">PARADISE OF FLAVOURS</p>
+    <p class="hero-tagline" data-i18n="hero_tagline">O călătorie culinară în inima orașului</p>
+    <a href="#menu" class="btn"><span data-i18n="hero_cta">Descoperă Meniul</span></a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal">
+        <div class="about-image-box">
+          <img src="embedded-image-02.jpg" alt="Restaurant Voyage">
+        </div>
+        <div class="about-accent-box">
+          <div class="year">2024</div>
+          <div class="year-label" data-i18n="established">Fondat</div>
+        </div>
+      </div>
+      <div class="about-copy reveal">
+        <p class="section-label" data-i18n="about_label">Povestea noastră</p>
+        <h2 class="section-title" data-i18n="about_title">Un loc unde gustul devine artă</h2>
+        <div class="divider" style="margin:0 0 32px;"></div>
+        <p class="about-body" data-i18n="about_p1">Restaurant Voyage s-a născut din pasiunea pentru gastronomie autentică și dorința de a oferi o experiență culinară de excepție în inima orașului Carei.</p>
+        <p class="about-body" data-i18n="about_p2">Fiecare fel de mâncare spune o poveste — ingrediente atent selectate, tehnici rafinate și o prezentare care transformă masa într-o călătorie a simțurilor.</p>
+        <div class="about-features">
+          <div class="about-feat"><div class="feat-icon">✦</div><div><div class="feat-label" data-i18n="feat1_title">Ingrediente proaspete</div><div class="feat-sub" data-i18n="feat1_sub">Selecție zilnică</div></div></div>
+          <div class="about-feat"><div class="feat-icon">✦</div><div><div class="feat-label" data-i18n="feat2_title">Atmosferă elegantă</div><div class="feat-sub" data-i18n="feat2_sub">Design rafinat</div></div></div>
+          <div class="about-feat"><div class="feat-icon">✦</div><div><div class="feat-label" data-i18n="feat3_title">Bucătărie internațională</div><div class="feat-sub" data-i18n="feat3_sub">Diversitate culinară</div></div></div>
+          <div class="about-feat"><div class="feat-icon">✦</div><div><div class="feat-label" data-i18n="feat4_title">Serviciu impecabil</div><div class="feat-sub" data-i18n="feat4_sub">Echipă dedicată</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="container">
+    <div class="menu-header reveal">
+      <p class="section-label" data-i18n="menu_label">Bucătăria noastră</p>
+      <h2 class="section-title" data-i18n="menu_title">Meniu</h2>
+      <div class="divider"></div>
+      <p style="font-family:var(--ff-serif);font-style:italic;color:var(--text-body);font-size:1.05rem;" data-i18n="menu_sub">O selecție atentă de preparate pentru fiecare gust și ocazie</p>
+    </div>
+    <div class="menu-tabs" id="menuTabs">
+      <button class="menu-tab active" data-tab="paste"    data-i18n="tab_paste">Tészta</button>
+      <button class="menu-tab"        data-tab="pizza"    data-i18n="tab_pizza">Pizza</button>
+      <button class="menu-tab"        data-tab="hal"      data-i18n="tab_hal">Hal</button>
+      <button class="menu-tab"        data-tab="plato"    data-i18n="tab_plato">Tálak</button>
+      <button class="menu-tab"        data-tab="sertes"   data-i18n="tab_sertes">Sertés</button>
+      <button class="menu-tab"        data-tab="burger"   data-i18n="tab_burger">Burger &amp; Tacos</button>
+      <button class="menu-tab"        data-tab="levesek"  data-i18n="tab_levesek">Levesek</button>
+      <button class="menu-tab"        data-tab="marha"    data-i18n="tab_marha">Marha</button>
+      <button class="menu-tab"        data-tab="szarnyas" data-i18n="tab_szarnyas">Szárnyas</button>
+      <button class="menu-tab"        data-tab="eloetal"  data-i18n="tab_eloetal">Előétel</button>
+      <button class="menu-tab"        data-tab="salata"   data-i18n="tab_salata">Saláta</button>
+      <button class="menu-tab"        data-tab="desert"   data-i18n="tab_desert">Desszert</button>
+    </div>
+
+    <div class="menu-panel active" id="panel-paste">
+      <h3 class="menu-category-title" data-i18n="tab_paste">Tészta / Paste</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pa1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pa1_name">Penne/Spaghette Carbonara</span><span class="item-price">39 RON</span></div><p class="item-desc" data-i18n="pa1_desc">Paste, bacon, smântână de gătit, parmezan (200g/100g/100g/75g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="pui steak.jpg" alt="Spaghette cu sos cremos si steak din piept de pui" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pa2_name">Spaghette cu sos cremos și steak din piept de pui</span><span class="item-price">46 RON</span></div><p class="item-desc" data-i18n="pa2_desc">Paste, piept de pui, sos de roșii, smântână de gătit (200g/180g/80g/70g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pa3.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pa3_name">Tortellini gratinat cu piept de pui, ciuperci și bacon</span><span class="item-price">45 RON</span></div><p class="item-desc" data-i18n="pa3_desc">Paste, piept de pui, ciuperci, bacon, smântână de gătit (200g/150g/75g/50g/25g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pa4.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pa4_name">Tagliatelle cu mușchi de vită și ciuperci de pădure</span><span class="item-price">69 RON</span></div><p class="item-desc" data-i18n="pa4_desc">Paste, mușchi de vită, ciuperci de pădure</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pa5.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pa5_name">Penne/Spaghette Quattro Formaggi cu bacon prăjit</span><span class="item-price">53 RON</span></div><p class="item-desc" data-i18n="pa5_desc">Paste, mix brânzeturi, smântână de gătit</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pa6.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pa6_name">Tagliatelle cu fructe de mare și sos de roșii cherry</span><span class="item-price">60 RON</span></div><p class="item-desc" data-i18n="pa6_desc">Paste, fructe de mare, roșii (200g/150g/80g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pa7.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pa7_name">Penne/Spaghette Arrabbiata</span><span class="item-price">43 RON</span></div><p class="item-desc" data-i18n="pa7_desc">Paste, sos roșii, usturoi, ardei iute (200g/150g/35g/20g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-03.jpg" alt="Mac&Cheese cu chicken wings" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pa8_name">Mac&Cheese cu chicken wings</span><span class="item-price">46 RON</span></div><p class="item-desc" data-i18n="pa8_desc">Paste, aripi de pui, cheddar, smântână de gătit, bacon (200g/200g/60g/45g/40g)</p></div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-pizza">
+      <h3 class="menu-category-title" data-i18n="tab_pizza">Pizza</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz1_name">Pizza Margherita</span><span class="item-price">26 RON</span></div><p class="item-desc" data-i18n="pz1_desc">Blat, sos de roșii, mozzarella</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz2.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz2_name">Pizza Prosciutto</span><span class="item-price">29 RON</span></div><p class="item-desc" data-i18n="pz2_desc">Blat, sos de roșii, mozzarella, șuncă</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz3.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz3_name">Pizza Prosciutto e funghi</span><span class="item-price">30 RON</span></div><p class="item-desc" data-i18n="pz3_desc">Blat, sos de roșii, mozzarella, șuncă, ciuperci</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz4.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz4_name">Pizza Prosciutto cu porumb</span><span class="item-price">30 RON</span></div><p class="item-desc" data-i18n="pz4_desc">Blat, sos de roșii, mozzarella, șuncă, porumb</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz5.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz5_name">Pizza Diavola cu Jalapeño</span><span class="item-price">31 RON</span></div><p class="item-desc" data-i18n="pz5_desc">Blat, sos de roșii, mozzarella, salam, jalapeño</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz6.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz6_name">Pizza Capricciosa</span><span class="item-price">32 RON</span></div><p class="item-desc" data-i18n="pz6_desc">Blat, sos de roșii, mozzarella, șuncă, ciuperci, anghinare</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz7.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz7_name">Pizza Hawaii</span><span class="item-price">32 RON</span></div><p class="item-desc" data-i18n="pz7_desc">Blat, sos de roșii, mozzarella, bacon, porumb, ananas</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz8.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz8_name">Pizza Quattro Formaggi</span><span class="item-price">33 RON</span></div><p class="item-desc" data-i18n="pz8_desc">Blat, sos de roșii, mozzarella, emmenthaler, camambert, gorgonzola</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz9.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz9_name">Pizza cu Ton</span><span class="item-price">33 RON</span></div><p class="item-desc" data-i18n="pz9_desc">Blat, sos de roșii, mozzarella, ton, ceapă roșie</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz10.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz10_name">Pizza Quattro Stagioni</span><span class="item-price">35 RON</span></div><p class="item-desc" data-i18n="pz10_desc">Blat, sos de roșii, mozzarella, șuncă, salam, ciuperci, porumb</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz11.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz11_name">Pizza Fructe de mare</span><span class="item-price">36 RON</span></div><p class="item-desc" data-i18n="pz11_desc">Blat, sos de roșii, mozzarella, cocktail de fructe de mare, creveți</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz12.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz12_name">Pizza Mexicana</span><span class="item-price">36 RON</span></div><p class="item-desc" data-i18n="pz12_desc">Blat, sos de roșii, mozzarella, bacon, salam, fasole roșie, porumb, ardei copți, jalapeño</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz13.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz13_name">Pizza Țărănească</span><span class="item-price">36 RON</span></div><p class="item-desc" data-i18n="pz13_desc">Blat, sos de roșii, mozzarella, salam, cârnați, ardei kapia, ceapă roșie, ardei iute, ouă</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz14.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz14_name">Pizza Prosciutto Crudo</span><span class="item-price">37 RON</span></div><p class="item-desc" data-i18n="pz14_desc">Blat, sos de roșii, mozzarella, prosciutto crudo, ruccola, roșii cherry, parmezan</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz15.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz15_name">Pizza Tutto Carni</span><span class="item-price">38 RON</span></div><p class="item-desc" data-i18n="pz15_desc">Blat, sos de roșii, mozzarella, șuncă, salam, bacon, cârnați, ciuperci, porumb</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pz16.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pz16_name">Pizza Vegetariana</span><span class="item-price">32 RON</span></div><p class="item-desc" data-i18n="pz16_desc">Blat, sos de roșii, mozzarella, zuchini, vinete, ciuperci, ardei roșu, roșii, măsline</p></div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-hal">
+      <h3 class="menu-category-title" data-i18n="tab_hal">Pește / Hal</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/h1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="h1_name">Calamari a`la romana cu cartofi chips și sos tartar</span><span class="item-price">54 RON</span></div><p class="item-desc" data-i18n="h1_desc">Calamari, cartofi, maioneză, făină (180g/180g/50g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-04.jpg" alt="Păstrăv la grill" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="h2_name">Păstrăv la grill cu polenta gratinat, telemea, smântână și mujdei</span><span class="item-price">49 RON</span></div><p class="item-desc" data-i18n="h2_desc">Păstrăv, mălai, telemea, smântână de gătit (250g/250g/60g/40g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-05.jpg" alt="File de șalău crocant" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="h3_name">File de șalău crocant cu orez prăjit și sos olandez</span><span class="item-price">57 RON</span></div><p class="item-desc" data-i18n="h3_desc">Șalău, orez, ouă, unt (180g/180g/30g/25g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/h4.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="h4_name">Creveți Kataif cu tartar de avocado și mango, sos sweet chilli</span><span class="item-price">75 RON</span></div><p class="item-desc" data-i18n="h4_desc">Creveți, avocado, mango, sos (200g/50g/40g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="tigaia picanta.jpg" alt="Tigaia picanta cu fructe de mare" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="h5_name">Tigaia picantă cu fructe de mare</span><span class="item-price">72 RON</span></div><p class="item-desc" data-i18n="h5_desc">Fructe de mare, sos de roșii (250g/100g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/h6.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="h6_name">Somon în sos de ciuperci cu orez mexican și sos sweet chilli</span><span class="item-price">69 RON</span></div><p class="item-desc" data-i18n="h6_desc">Somon, orez, ciuperci, unt (180g/180g/50g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-06.jpg" alt="Fritto Misto" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="h7_name">Fritto Misto cu cartofi pai și sos tartar</span><span class="item-price">65 RON</span></div><p class="item-desc" data-i18n="h7_desc">Fructe de mare, cartofi, maioneză, făină (200g/180g/50g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/h8.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="h8_name">Steak de somon pe pat de broccoli și sos olandez</span><span class="item-price">68 RON</span></div><p class="item-desc" data-i18n="h8_desc">Somon, broccoli, ouă, unt</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-07.jpg" alt="Caracatiță" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="h9_name">Caracatiță cu polenta gratinat și salata fresh</span><span class="item-price">89 RON</span></div><p class="item-desc" data-i18n="h9_desc">Caracatiță, mălai (180g/180g)</p></div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-plato">
+      <h3 class="menu-category-title" data-i18n="tab_plato">Platouri / Tálak</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/pl2.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="pl2_name">Platou Grill (4 persoane)</span><span class="item-price">350 RON</span></div><p class="item-desc" data-i18n="pl2_desc">Rib-Eye steak de vită, mici la grill, ceafă de porc, piept de pui, scăriță BBQ. Garnituri: cartofi prăjiți, cartofi bărcuță. Sosuri: chimichurri, muștar</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/vo1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="vo1_name">Platou Voyage (4 persoane) — 300 LEI</span><span class="item-price">300 RON</span></div><p class="item-desc" data-i18n="vo1_desc">Ciolan întreg afumat, ruladă de pui umplut cu ciuperci, mozzarella, prosciutto crudo învelit în bacon, frigărui de pui cu legume, crispy de pui, cotlet de porc cu os, ceafă de porc. Garnituri: cartofi copți în coajă, cartofi wedges, orez prăjit. Salată asortată</p></div></div>
+      </div>
+    </div>
+    </div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-sertes">
+      <h3 class="menu-category-title" data-i18n="tab_sertes">Porc / Sertés</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/se1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se1_name">Mici (5 buc.) cu cartofi prăjiți și muștar</span><span class="item-price">39 RON</span></div><p class="item-desc" data-i18n="se1_desc">Mici, cartofi prăjiți, muștar (300gr/180gr/100gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/se2.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se2_name">Ceafă de porc la grill</span><span class="item-price">35 RON</span></div><p class="item-desc" data-i18n="se2_desc">Ceafă de porc (200gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="scarita de porc.jpg" alt="Scarita de porc BBQ" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se3_name">Scăriță de porc BBQ cu cartofi ondulați și sos rossa</span><span class="item-price">59 RON</span></div><p class="item-desc" data-i18n="se3_desc">Scăriță de porc, cartofi, sos bbq, sos rossa (400gr/180gr/60gr/60gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="Cotlet de porc voyage.jpg" alt="Cotlet de porc Voyage" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se4_name">Cotlet de porc Voyage cu cartofi bărcuță</span><span class="item-price">54 RON</span></div><p class="item-desc" data-i18n="se4_desc">Carne porc, cartofi, mozzarella (200gr/200gr/100gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-08.jpg" alt="Cotlet de porc" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se5_name">Cotlet de porc cu os gratinat cu camambert, cartofi copți și sos piri-piri</span><span class="item-price">64 RON</span></div><p class="item-desc" data-i18n="se5_desc">Cotlet de porc, cartofi, camambert (300gr/180gr/80gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="rulou din muschi.jpg" alt="Rulou din muschi de porc" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se6_name">Rulou din mușchi de porc cu bacon, cartofi umpluți cu bacon și cheddar și sos gravy</span><span class="item-price">65 RON</span></div><p class="item-desc" data-i18n="se6_desc">Mușchiuleț, cartofi, bacon, cheddar (180gr/170gr/60gr/60gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/se7.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se7_name">Ciolan de purcel la cuptor cu cartofi țărănești și murături</span><span class="item-price">67 RON</span></div><p class="item-desc" data-i18n="se7_desc">Ciolan, cartofi (700gr/180gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/se8.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se8_name">Mușchi de porc umplut cu cremă de brânză, ceapă verde și bacon, cartofi copți zdrobiți</span><span class="item-price">68 RON</span></div><p class="item-desc" data-i18n="se8_desc">Carne porc, cartofi, bacon, cremă brânză (180gr/200gr/80gr/50gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/se9.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se9_name">Mușchi țigănesc din ceafă de porc cu ochi de ou, slănină și cartofi bavarezi</span><span class="item-price">60 RON</span></div><p class="item-desc" data-i18n="se9_desc">Ceafă de porc, cartofi, ouă, făină (220gr/180gr/100gr/30gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/se10.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se10_name">Tocănița de mistreț cu cartofi noi aromați și salată de ardei copți</span><span class="item-price">69 RON</span></div><p class="item-desc" data-i18n="se10_desc">Carne mistreț, cartofi, ardei copți (300gr/180gr/100gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-09.jpg" alt="Ciolan de porc crocant" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se11_name">Ciolan de porc crocant, afumat cu iahnie de fasole și castraveți murați</span><span class="item-price">82 RON</span></div><p class="item-desc" data-i18n="se11_desc">Ciolan afumat, fasole, murături (1000gr/250gr/100gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-10.jpg" alt="Snițel Vienez" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="se12_name">Snițel Vienez din mușchi de porc cu salată coleslaw</span><span class="item-price">58 RON</span></div><p class="item-desc" data-i18n="se12_desc">Mușchi de porc, maioneză, pesmet, ouă (350gr/50gr/40gr/30gr)</p></div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-burger">
+      <h3 class="menu-category-title" data-i18n="tab_burger">Burger &amp; Tacos</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-11.jpg" alt="Burger Voyage" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="bu2_name">Burger Voyage de vită Black Angus "înecat în cheddar"</span><span class="item-price">43 RON</span></div><p class="item-desc" data-i18n="bu2_desc">Carne vită, chiflă, roșii, bacon, cheddar, ceapă (150g/80g/30g/20g/20g/15g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/bu3.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="bu3_name">Burger Bacon&Chilli de vită Black Angus</span><span class="item-price">39 RON</span></div><p class="item-desc" data-i18n="bu3_desc">Carne vită, chiflă, bacon, cheddar, roșii, jalapeño (150g/80g/20g/20g/20g/15g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/bu4.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="bu4_name">Smashed burger double de vită</span><span class="item-price">39 RON</span></div><p class="item-desc" data-i18n="bu4_desc">Carne vită, chiflă, cheddar, roșii, ceapă (150g/80g/20g/20g/15g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/bu5.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="bu5_name">Burger Double mix vită și pui crispy</span><span class="item-price">51 RON</span></div><p class="item-desc" data-i18n="bu5_desc">Carne de pui, carne de vită, chiflă, bacon, cheddar, roșii, castraveți murați</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/bu6.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="bu6_name">French Tacos cu Crispy de pui, mozzarella și sos cheddar</span><span class="item-price">39 RON</span></div><p class="item-desc" data-i18n="bu6_desc">Crispy de pui, mozzarella, cheddar, porumb, roșii, tortilla (180g/80g/40g/40g/40g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/bu7.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="bu7_name">4YOU platou burger (4 jumătăți de burger Angus în sos cheddar)</span><span class="item-price">89 RON</span></div><p class="item-desc" data-i18n="bu7_desc">Carne vită, chiflă, cheddar, roșii, ceapă (150g/80g/20g/20g/15g)</p></div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-levesek">
+      <h3 class="menu-category-title" data-i18n="tab_levesek">Supe / Levesek</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/le1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="le1_name">Gulaș de fasole</span><span class="item-price">26 RON</span></div><p class="item-desc" data-i18n="le1_desc">Costiță afumată, cârnați afumați, fasole, morcovi (70g/50g/30g/15g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/le2.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="le2_name">Ciorbă de burtă</span><span class="item-price">24 RON</span></div><p class="item-desc" data-i18n="le2_desc">Burtă vită, smântână, ouă, morcovi (100g/50g/20g/15g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/le3.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="le3_name">Ciorbă țărănească de legume</span><span class="item-price">22 RON</span></div><p class="item-desc" data-i18n="le3_desc">Morcovi, țelină, fasole verde, mazăre verde, varză (80g/60g/30g/30g/20g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/le4.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="le4_name">Ciorbă țărănească de porc</span><span class="item-price">24 RON</span></div><p class="item-desc" data-i18n="le4_desc">Carne de porc, morcovi, țelină, fasole verde, mazăre verde, varză</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/le5.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="le5_name">Ciorbă țărănească de vită</span><span class="item-price">26 RON</span></div><p class="item-desc" data-i18n="le5_desc">Carne de vită, morcovi, țelină, fasole verde, mazăre verde, varză</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/le6.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="le6_name">Supă cremă cheddar cu broccoli și chips de bacon</span><span class="item-price">29 RON</span></div><p class="item-desc" data-i18n="le6_desc">Cheddar, broccoli, bacon (100g/80g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/le7.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="le7_name">Supă cremă de ciuperci cu crutoane</span><span class="item-price">28 RON</span></div><p class="item-desc" data-i18n="le7_desc">Ciuperci, ceapă, lapte, făină (100g/80g/40g/15g)</p></div></div>
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-marha">
+      <h3 class="menu-category-title" data-i18n="tab_marha">Vită / Marha</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><img src="os de vita.jpg" alt="Os de vita cu maduva" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ma1_name">Os de vită cu măduvă, pâine prăjită și sos de iaurt cu usturoi</span><span class="item-price">69 RON</span></div><p class="item-desc" data-i18n="ma1_desc">Os de vită, pâine, iaurt (250g/180g/80g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ma2.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ma2_name">Biftec tartar</span><span class="item-price">94 RON</span></div><p class="item-desc" data-i18n="ma2_desc">Carne de vită, ouă, muștar, worchester, ketchup (180gr/30gr/25g/25g/20g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-12.jpg" alt="Rib-Eye steak on fries" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ma3_name">Rib-Eye steak on fries cu sos secret</span><span class="item-price">109 RON</span></div><p class="item-desc" data-i18n="ma3_desc">Steak de vită, cartofi, muștar, miere (250g/180g/40g/25g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="coaste de vita slow cooked.jpg" alt="Coaste de vita slow cooked" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ma4_name">Coaste de vită slow cooked cu cartofi ondulați și sos gravy</span><span class="item-price">95 RON</span></div><p class="item-desc" data-i18n="ma4_desc">Coaste de vită, cartofi, sos (250g/180g/80g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ma5.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ma5_name">Mușchi de vită, camambert învelit în bacon cu cartofi aurii, pere caramelizat și sos brun</span><span class="item-price">119 RON</span></div><p class="item-desc" data-i18n="ma5_desc">Mușchi de vită, cartofi, camambert, miere (200g/180g/100g/50g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-13.jpg" alt="Surf n Turf" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ma6_name">Surf`n`Turf (Steak de vită cu creveți) pe pat de sparanghel cu sos piper verde</span><span class="item-price">129 RON</span></div><p class="item-desc" data-i18n="ma6_desc">Mușchi de vită, creveți, smântână (200g/150g/35g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ma7.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ma7_name">T-Bone steak cu ciuperci aromatizate și patatas bravas cu sos de piper verde</span><span class="item-price">159 RON</span></div><p class="item-desc" data-i18n="ma7_desc">Steak de vită, cartofi, ciuperci, smântână (400g/180g/150g/20g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ma8.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ma8_name">Antricot de vită Australian (inclusiv garnitură și sos la alegere)</span><span class="item-price">299 RON</span></div><p class="item-desc" data-i18n="ma8_desc">Carne de vită (250g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ma9.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ma9_name">Steak Tomahawk (1kg) cu cartofi cu rozmarin, legume tempura și sos brun</span><span class="item-price">379 RON</span></div><p class="item-desc" data-i18n="ma9_desc">Steak de vită, cartofi, făină (1000g/200g/200g/20g)</p></div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-szarnyas">
+      <h3 class="menu-category-title" data-i18n="tab_szarnyas">Pui / Szárnyas</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz1_name">Snițel din piept de pui</span><span class="item-price">32 RON</span></div><p class="item-desc" data-i18n="sz1_desc">Piept de pui, făină, ouă, pesmet (180g/15g/15g/15g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz2.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz2_name">Palermo din piept de pui</span><span class="item-price">34 RON</span></div><p class="item-desc" data-i18n="sz2_desc">Piept de pui, făină, ouă, pesmet, lapte (180g/15g/15g/15g/10g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz3.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz3_name">Piept de pui la grill</span><span class="item-price">36 RON</span></div><p class="item-desc" data-i18n="sz3_desc">Piept de pui (200g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz4.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz4_name">Cordon bleu din piept de pui</span><span class="item-price">35 RON</span></div><p class="item-desc" data-i18n="sz4_desc">Piept de pui, mozzarella, șuncă, făină, ouă, pesmet (180g/100g/30g/10g/10g/10g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-14.jpg" alt="Crispy de pui" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz5_name">Crispy de pui cu cartofi pai și sos alb cu usturoi</span><span class="item-price">39 RON</span></div><p class="item-desc" data-i18n="sz5_desc">Piept de pui, cartofi, fulgi de porumb, smântână, ouă, făină, pesmet</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz6.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz6_name">Frigărui de pui la grill cu legume, cartofi copți cu usturoi și sos tzatziki</span><span class="item-price">48 RON</span></div><p class="item-desc" data-i18n="sz6_desc">Piept de pui, cartofi, sos tzatziki (200gr/180gr/80gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz7.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz7_name">Pui umplut cu feta, măsline, ardei copți și pireu de cartofi cu bacon</span><span class="item-price">49 RON</span></div><p class="item-desc" data-i18n="sz7_desc">Piept de pui, cartofi piure, feta, măsline, ardei copți, bacon (180g/180gr/60g/30g/30g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz8.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz8_name">Șnițel Voyage cu Mac`n`Cheese și cartofi wedges</span><span class="item-price">50 RON</span></div><p class="item-desc" data-i18n="sz8_desc">Piept de pui, cartofi, paste, cheddar (180g/180g/60g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz9.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz9_name">Piept de pui gratinat cu broccoli, legume sote și sos gorgonzola</span><span class="item-price">52 RON</span></div><p class="item-desc" data-i18n="sz9_desc">Piept de pui, legume sote, broccoli, smântână de gătit, gorgonzola (180gr/180gr/60gr/50gr/50g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="pui crestat cu rosii si ceapa.jpg" alt="Pui crestat cu rosii, cascaval si bacon" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz10_name">Pui crestat cu roșii, cașcaval și bacon, cartofi gratinați și sos cheddar</span><span class="item-price">57 RON</span></div><p class="item-desc" data-i18n="sz10_desc">Piept de pui, cartofi gratinați, cașcaval, bacon, sos cheddar</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-15.jpg" alt="Ruladă de pui" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz11_name">Ruladă de pui umplut cu ciuperci, mozzarella, prosciutto crudo, cu cartofi ondulați</span><span class="item-price">56 RON</span></div><p class="item-desc" data-i18n="sz11_desc">Piept de pui, cartofi, mozzarella, ciuperci, prosciutto crudo (180gr/180gr/80gr/50gr/40gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz12.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz12_name">Piept de pui umplut cu mere și camambert învelit în prosciutto crudo cu piure de cartofi cu broccoli</span><span class="item-price">56 RON</span></div><p class="item-desc" data-i18n="sz12_desc">Piept de pui, cartofi, mix cașcaval, bacon, camambert, mere (180gr/180gr/120gr/50gr/50gr/50gr)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sz13.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sz13_name">Piept de rață cu pireu de cartofi, varză roșie călită și sos de fructe</span><span class="item-price">78 RON</span></div><p class="item-desc" data-i18n="sz13_desc">Piept de rață, cartofi, varză roșie, sos de fructe (250gr/180gr/80gr/50gr)</p></div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-eloetal">
+      <h3 class="menu-category-title" data-i18n="tab_eloetal">Aperitive / Előétel</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/el1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="el1_name">Bruschette mixt</span><span class="item-price">39 RON</span></div><p class="item-desc" data-i18n="el1_desc">Pâine, roșii, guacamole, prosciutto crudo, mozzarella (120g/60g/60g/40g/40g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/el2.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="el2_name">Platou brânzeturi (2 persoane)</span><span class="item-price">69 RON</span></div><p class="item-desc" data-i18n="el2_desc">Mozzarella, emmenthaler, brie, camambert, gorgonzola, prosciutto crudo, nuci, miere (100g/100g/100g/100g/75g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/el3.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="el3_name">Cașcaval pane cu cartofi prăjiți și sos alb</span><span class="item-price">35 RON</span></div><p class="item-desc" data-i18n="el3_desc">Mozzarella, cartofi prăjiți, usturoi, smântână (150g/140g/80g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/el4.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="el4_name">Omletă cu șuncă și mozzarella</span><span class="item-price">28 RON</span></div><p class="item-desc" data-i18n="el4_desc">Ouă, șuncă, mozzarella (150g/100g/80g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/el5.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="el5_name">Omletă țărănească</span><span class="item-price">30 RON</span></div><p class="item-desc" data-i18n="el5_desc">Ouă, cârnați, mozzarella, ardei, ceapă (150g/100g/80g/50g/50g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/el6.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="el6_name">Bacon&Eggs cu mozzarella și pâine prăjită</span><span class="item-price">32 RON</span></div><p class="item-desc" data-i18n="el6_desc">Ouă, bacon, mozzarella, pâine (150g/100g/80g/80g)</p></div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-salata">
+      <h3 class="menu-category-title" data-i18n="tab_salata">Salate / Saláta</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sa1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sa1_name">Salată cu piept de pui Panko</span><span class="item-price">37 RON</span></div><p class="item-desc" data-i18n="sa1_desc">Piept de pui, salată, roșii, castraveți, ceapă, iaurt, feta (120g/100g/60g/50g/30g/30g/20g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sa2.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sa2_name">Salată Cezar</span><span class="item-price">39 RON</span></div><p class="item-desc" data-i18n="sa2_desc">Piept de pui, salată, ouă, crutoane, sos (120g/100g/30g/20g/20g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sa3.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sa3_name">Salată de pui cu avocado</span><span class="item-price">38 RON</span></div><p class="item-desc" data-i18n="sa3_desc">Piept de pui, salată, avocado, mozzarella, măsline, roșii cherry, ciuperci, dressing de muștar cu miere</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sa4.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sa4_name">Salată cu creveți</span><span class="item-price">42 RON</span></div><p class="item-desc" data-i18n="sa4_desc">Creveți, ruccola, iceberg, avocado, mango, vinegrette (150g/75g/75g/50g/50g/20g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/sa5.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="sa5_name">Salată Voyage cu pui Crispy și salsa de iaurt</span><span class="item-price">38 RON</span></div><p class="item-desc" data-i18n="sa5_desc">Piept de pui, salată, roșii, avocado, mozzarella (120g/100g/75g/75g/50g)</p></div></div>
+      </div>
+    </div>
+
+      <div class="menu-panel" id="panel-desert">
+      <h3 class="menu-category-title" data-i18n="tab_desert">Desert / Desszert</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ds1.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ds1_name">Tiramisu</span><span class="item-price">27 RON</span></div><p class="item-desc" data-i18n="ds1_desc">Pișcoturi, mascarpone, ouă, cafea (65g/45g/35g/25g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ds2.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ds2_name">Profiterol cu ciocolată, înghețată și frișcă</span><span class="item-price">25 RON</span></div><p class="item-desc" data-i18n="ds2_desc">Profiterol, înghețată, frișcă (100g/80g/80g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><img src="embedded-image-16.jpg" alt="Profiterol cu fructe" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ds3_name">Profiterol cu fructe, înghețată și frișcă</span><span class="item-price">25 RON</span></div><p class="item-desc" data-i18n="ds3_desc">Profiterol, fructe, înghețată, frișcă (100g/80g/80g/60g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ds4.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ds4_name">Cheesecake</span><span class="item-price">30 RON</span></div><p class="item-desc" data-i18n="ds4_desc">Mascarpone, frișcă, biscuiți, nucă (75g/45g/50g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ds5.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ds5_name">Brownie cu ciocolată și înghețată de vanilie</span><span class="item-price">32 RON</span></div><p class="item-desc" data-i18n="ds5_desc">Ouă, făină, unt, lapte, înghețată (75g/60g/40g/30g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ds6.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ds6_name">Clătite cu sos fistic și mix de ciocolată</span><span class="item-price">33 RON</span></div><p class="item-desc" data-i18n="ds6_desc">Ouă, ciocolată, fistic, făină, unt, lapte (75g/75g/60g/50g/40g/30g)</p></div></div>
+        <div class="menu-item"><div class="item-img"><!-- <img src="images/ds7.jpg" alt=""> --><div class="item-img-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>foto</span></div></div><div class="item-body"><div class="item-top"><span class="item-name" data-i18n="ds7_name">Papanași prăjiți cu sos de afine și smântână</span><span class="item-price">32 RON</span></div><p class="item-desc" data-i18n="ds7_desc">Brânză, ouă, smântână, sos afine, făină (100g/60g/50g/50g/25g)</p></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="container">
+    <div class="gallery-header reveal">
+      <p class="section-label" data-i18n="gallery_label">Atmosferă</p>
+      <h2 class="section-title" data-i18n="gallery_title">Galerie</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-cell"><!-- <img src="images/g1.jpg" alt=""> --><div class="gallery-overlay"></div><div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span data-i18n="photo_placeholder">Foto</span></div></div>
+      <div class="gallery-cell"><!-- <img src="images/g2.jpg" alt=""> --><div class="gallery-overlay"></div><div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span data-i18n="photo_placeholder">Foto</span></div></div>
+      <div class="gallery-cell"><!-- <img src="images/g3.jpg" alt=""> --><div class="gallery-overlay"></div><div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span data-i18n="photo_placeholder">Foto</span></div></div>
+      <div class="gallery-cell"><!-- <img src="images/g4.jpg" alt=""> --><div class="gallery-overlay"></div><div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span data-i18n="photo_placeholder">Foto</span></div></div>
+      <div class="gallery-cell"><!-- <img src="images/g5.jpg" alt=""> --><div class="gallery-overlay"></div><div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span data-i18n="photo_placeholder">Foto</span></div></div>
+      <div class="gallery-cell"><!-- <img src="images/g6.jpg" alt=""> --><div class="gallery-overlay"></div><div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span data-i18n="photo_placeholder">Foto</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-header reveal">
+      <p class="section-label" data-i18n="contact_label">Găsește-ne</p>
+      <h2 class="section-title" data-i18n="contact_title">Contact</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-block">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="contact-label" data-i18n="contact_address_label">Adresă</div><div class="contact-value">Str. 1 Decembrie 1918 nr. 6<br>Carei, Satu Mare</div></div>
+        </div>
+        <div class="contact-block">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.1a16 16 0 006.06 6.06l1.46-1.46a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+          <div><div class="contact-label" data-i18n="contact_phone_label">Telefon</div><div class="contact-value"><a href="tel:+40740106677">+40 740 106 677</a></div></div>
+        </div>
+        <div class="contact-block">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="contact-label" data-i18n="contact_email_label">Email</div><div class="contact-value"><a href="mailto:restaurantvoyage2024@gmail.com">restaurantvoyage2024@gmail.com</a></div></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h3 class="hours-title" data-i18n="hours_title">Program</h3>
+        <div class="hours-row"><span class="hours-day" data-i18n="day_mon_fri">Luni — Sâmbătă</span><span class="hours-time" data-i18n="time_mon_fri">8:00 — 22:00</span></div>
+        <div class="hours-row"><span class="hours-day" data-i18n="day_sun">Duminică</span><span class="hours-time" data-i18n="time_sun">10:00 — 22:00</span></div>
+        <div style="margin-top:40px;"><a href="tel:+40740106677" class="btn"><span data-i18n="reserve_btn">Rezervare telefonică</span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">RESTAURANT VOYAGE</div>
+  <div class="footer-sub">Paradise of Flavours</div>
+  <div class="footer-legal">
+    <div class="footer-card">
+      <div class="footer-card-title" data-i18n="legal_company_title">Date companie</div>
+      <ul class="footer-list">
+        <li><strong data-i18n="legal_brand_label">Brand:</strong> <span data-i18n="legal_brand_value">Voyage</span></li>
+        <li><strong data-i18n="legal_company_label">Companie:</strong> TAR LEVENDULA S.R.L</li>
+        <li><strong data-i18n="legal_cui_label">CUI:</strong> RO48510896</li>
+        <li><strong data-i18n="legal_reg_label">Nr. Reg. Com.:</strong> J2023000651306</li>
+        <li><strong data-i18n="legal_city_label">Sediu:</strong> <span data-i18n="legal_city_value">Carei, România</span></li>
+      </ul>
+    </div>
+    <div class="footer-card">
+      <div class="footer-card-title" data-i18n="legal_contact_title">Contact</div>
+      <ul class="footer-list">
+        <li><strong data-i18n="contact_phone_label">Telefon</strong>: <a href="tel:+40740106677">+40 740 106 677</a></li>
+        <li><strong data-i18n="contact_email_label">Email</strong>: <a href="mailto:restaurantvoyage2024@gmail.com">restaurantvoyage2024@gmail.com</a></li>
+        <li><strong data-i18n="contact_address_label">Adresă</strong>: <span data-i18n="legal_address_value">Str. 1 Decembrie 1918 nr. 6, Carei, Satu Mare, România</span></li>
+      </ul>
+    </div>
+    <div class="footer-card">
+      <div class="footer-card-title" data-i18n="legal_links_title">Linkuri utile</div>
+      <div class="footer-links">
+        <a href="privacy-policy.html" data-i18n="footer_privacy">Politica de confidențialitate</a>
+        <a href="cookies-policy.html" data-i18n="footer_cookies">Politica de cookies</a>
+        <a href="https://anpc.ro" target="_blank" rel="noopener noreferrer" data-i18n="footer_anpc">ANPC</a>
+        <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" data-i18n="footer_odr">Soluționarea online a litigiilor</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-gdpr" data-i18n="footer_gdpr_notice">Prelucrăm doar datele minime necesare pentru funcționarea site-ului și comunicarea cu clienții. Pentru solicitări GDPR ne puteți scrie la restaurantvoyage2024@gmail.com.</div>
+  <div class="footer-inline-links">
+    <a href="privacy-policy.html" data-i18n="footer_privacy_short">Confidențialitate</a>
+    <a href="cookies-policy.html" data-i18n="footer_cookies_short">Cookies</a>
+    <a href="https://anpc.ro" target="_blank" rel="noopener noreferrer" data-i18n="footer_anpc">ANPC</a>
+    <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" data-i18n="footer_odr">SOL</a>
+  </div>
+  <div class="footer-copy" data-i18n="footer_copy">© 2026 Restaurant Voyage. Toate drepturile rezervate.</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+var T = {
+  ro: { nav_home:"Acasă",nav_about:"Despre noi",nav_menu:"Meniu",nav_gallery:"Galerie",nav_contact:"Contact",hero_eyebrow:"EST. 2024 — CAREI, ROMÂNIA",hero_tagline:"O călătorie culinară în inima orașului",hero_cta:"Descoperă Meniul",scroll:"Scroll",about_label:"Povestea noastră",about_title:"Un loc unde gustul devine artă",about_p1:"Restaurant Voyage s-a născut din pasiunea pentru gastronomie autentică și dorința de a oferi o experiență culinară de excepție în inima orașului Carei.",about_p2:"Fiecare fel de mâncare spune o poveste — ingrediente atent selectate, tehnici rafinate și o prezentare care transformă masa într-o călătorie a simțurilor.",feat1_title:"Ingrediente proaspete",feat1_sub:"Selecție zilnică",feat2_title:"Atmosferă elegantă",feat2_sub:"Design rafinat",feat3_title:"Bucătărie internațională",feat3_sub:"Diversitate culinară",feat4_title:"Serviciu impecabil",feat4_sub:"Echipă dedicată",menu_label:"Bucătăria noastră",menu_title:"Meniu",menu_sub:"O selecție atentă de preparate pentru fiecare gust și ocazie",tab_starters:"Aperitive",tab_soups:"Supe",tab_mains:"Feluri principale",tab_pizza:"Pizza & Paste",tab_desserts:"Deserturi",tab_drinks:"Băuturi",gallery_label:"Atmosferă",gallery_title:"Galerie",photo_placeholder:"Foto",contact_label:"Găsește-ne",contact_title:"Contact",contact_address_label:"Adresă",contact_phone_label:"Telefon",contact_email_label:"Email",hours_title:"Program",day_mon_fri:"Luni — Sâmbătă",time_mon_fri:"8:00 — 22:00",day_sat:"Sâmbătă",time_sat:"8:00 — 22:00",day_sun:"Duminică",time_sun:"10:00 — 22:00",reserve_btn:"Rezervare telefonică",established:"Fondat",footer_copy:"© 2024 Restaurant Voyage. Toate drepturile rezervate.",s1_name:"Denumire preparat",s1_desc:"Descriere scurtă a preparatului cu ingredientele principale",s2_name:"Denumire preparat",s2_desc:"Descriere scurtă a preparatului cu ingredientele principale",s3_name:"Denumire preparat",s3_desc:"Descriere scurtă a preparatului cu ingredientele principale",s4_name:"Denumire preparat",s4_desc:"Descriere scurtă a preparatului cu ingredientele principale",su1_name:"Denumire preparat",su1_desc:"Descriere scurtă",su2_name:"Denumire preparat",su2_desc:"Descriere scurtă",su3_name:"Denumire preparat",su3_desc:"Descriere scurtă",m1_name:"Denumire preparat",m1_desc:"Descriere scurtă",m2_name:"Denumire preparat",m2_desc:"Descriere scurtă",m3_name:"Denumire preparat",m3_desc:"Descriere scurtă",m4_name:"Denumire preparat",m4_desc:"Descriere scurtă",m5_name:"Denumire preparat",m5_desc:"Descriere scurtă",m6_name:"Denumire preparat",m6_desc:"Descriere scurtă",p1_name:"Denumire preparat",p1_desc:"Descriere scurtă",p2_name:"Denumire preparat",p2_desc:"Descriere scurtă",p3_name:"Denumire preparat",p3_desc:"Descriere scurtă",p4_name:"Denumire preparat",p4_desc:"Descriere scurtă",d1_name:"Denumire preparat",d1_desc:"Descriere scurtă",d2_name:"Denumire preparat",d2_desc:"Descriere scurtă",d3_name:"Denumire preparat",d3_desc:"Descriere scurtă",dr1_name:"Denumire băutură",dr1_desc:"Descriere scurtă",dr2_name:"Denumire băutură",dr2_desc:"Descriere scurtă",dr3_name:"Denumire băutură",dr3_desc:"Descriere scurtă",dr4_name:"Denumire băutură",dr4_desc:"Descriere scurtă" ,tab_paste:"Paste",tab_pizza:"Pizza",tab_hal:"Pește",tab_plato:"Platouri",tab_sertes:"Porc",tab_burger:"Burger & Tacos",tab_levesek:"Supe",tab_marha:"Vită",tab_szarnyas:"Pasăre",tab_eloetal:"Aperitive",tab_salata:"Salate",pa1_name:"Penne/Spaghette Carbonara",pa1_desc:"Paste, bacon, smântână de gătit, parmezan (200g/100g/100g/75g)",pa2_name:"Spaghette cu sos cremos și steak din piept de pui",pa2_desc:"Paste, piept de pui, sos de roșii, smântână de gătit (200g/180g/80g/70g)",pa3_name:"Tortellini gratinat cu piept de pui, ciuperci și bacon",pa3_desc:"Paste, piept de pui, ciuperci, bacon, smântână de gătit (200g/150g/75g/50g/25g)",pa4_name:"Tagliatelle cu mușchi de vită și ciuperci de pădure",pa4_desc:"Paste, mușchi de vită, ciuperci de pădure",pa5_name:"Penne/Spaghette Quattro Formaggi cu bacon prăjit",pa5_desc:"Paste, mix brânzeturi, smântână de gătit",pa6_name:"Tagliatelle cu fructe de mare și sos de roșii cherry",pa6_desc:"Paste, fructe de mare, roșii (200g/150g/80g)",pa7_name:"Penne/Spaghette Arrabbiata",pa7_desc:"Paste, sos roșii, usturoi, ardei iute (200g/150g/35g/20g)",pa8_name:"Mac&Cheese cu chicken wings",pa8_desc:"Paste, aripi de pui, cheddar, smântână de gătit, bacon (200g/200g/60g/45g/40g)",pz1_name:"Pizza Margherita",pz1_desc:"Blat, sos de roșii, mozzarella",pz2_name:"Pizza Prosciutto",pz2_desc:"Blat, sos de roșii, mozzarella, șuncă",pz3_name:"Pizza Prosciutto e funghi",pz3_desc:"Blat, sos de roșii, mozzarella, șuncă, ciuperci",pz4_name:"Pizza Prosciutto cu porumb",pz4_desc:"Blat, sos de roșii, mozzarella, șuncă, porumb",pz5_name:"Pizza Diavola cu Jalapeño",pz5_desc:"Blat, sos de roșii, mozzarella, salam, jalapeño",pz6_name:"Pizza Capricciosa",pz6_desc:"Blat, sos de roșii, mozzarella, șuncă, ciuperci, anghinare",pz7_name:"Pizza Hawaii",pz7_desc:"Blat, sos de roșii, mozzarella, bacon, porumb, ananas",pz8_name:"Pizza Quattro Formaggi",pz8_desc:"Blat, sos de roșii, mozzarella, emmenthaler, camambert, gorgonzola",pz9_name:"Pizza cu Ton",pz9_desc:"Blat, sos de roșii, mozzarella, ton, ceapă roșie",pz10_name:"Pizza Quattro Stagioni",pz10_desc:"Blat, sos de roșii, mozzarella, șuncă, salam, ciuperci, porumb",pz11_name:"Pizza Fructe de mare",pz11_desc:"Blat, sos de roșii, mozzarella, cocktail de fructe de mare, creveți",pz12_name:"Pizza Mexicana",pz12_desc:"Blat, sos de roșii, mozzarella, bacon, salam, fasole roșie, porumb, ardei copți, jalapeño",pz13_name:"Pizza Țărănească",pz13_desc:"Blat, sos de roșii, mozzarella, salam, cârnați, ardei kapia, ceapă roșie, ardei iute, ouă",pz14_name:"Pizza Prosciutto Crudo",pz14_desc:"Blat, sos de roșii, mozzarella, prosciutto crudo, ruccola, roșii cherry, parmezan",pz15_name:"Pizza Tutto Carni",pz15_desc:"Blat, sos de roșii, mozzarella, șuncă, salam, bacon, cârnați, ciuperci, porumb",pz16_name:"Pizza Vegetariana",pz16_desc:"Blat, sos de roșii, mozzarella, zuchini, vinete, ciuperci, ardei roșu, roșii, măsline",h1_name:"Calamari a`la romana cu cartofi chips și sos tartar",h1_desc:"Calamari, cartofi, maioneză, făină (180g/180g/50g/30g)",h2_name:"Păstrăv la grill cu polenta gratinat, telemea, smântână și mujdei",h2_desc:"Păstrăv, mălai, telemea, smântână de gătit (250g/250g/60g/40g)",h3_name:"File de șalău crocant cu orez prăjit și sos olandez",h3_desc:"Șalău, orez, ouă, unt (180g/180g/30g/25g)",h4_name:"Creveți Kataif cu tartar de avocado și mango, sos sweet chilli",h4_desc:"Creveți, avocado, mango, sos (200g/50g/40g/30g)",h5_name:"Tigaia picantă cu fructe de mare",h5_desc:"Fructe de mare, sos de roșii (250g/100g)",h6_name:"Somon în sos de ciuperci cu orez mexican și sos sweet chilli",h6_desc:"Somon, orez, ciuperci, unt (180g/180g/50g/30g)",h7_name:"Fritto Misto cu cartofi pai și sos tartar",h7_desc:"Fructe de mare, cartofi, maioneză, făină (200g/180g/50g/30g)",h8_name:"Steak de somon pe pat de broccoli și sos olandez",h8_desc:"Somon, broccoli, ouă, unt",h9_name:"Caracatiță cu polenta gratinat și salata fresh",h9_desc:"Caracatiță, mălai (180g/180g)",pl1_name:"Platou Grill (4 persoane)",pl1_desc:"Rib-Eye steak de vită, mici la grill, ceafă de porc, piept de pui, scăriță BBQ. Garnituri: cartofi prăjiți, cartofi bărcuță. Sosuri: chimichurri, muștar",pl2_name:"Platou Grill (4 persoane)",pl2_desc:"Rib-Eye steak de vită, mici la grill, ceafă de porc, piept de pui, scăriță BBQ. Garnituri: cartofi prăjiți, cartofi bărcuță. Sosuri: chimichurri, muștar",se1_name:"Mici (5 buc.) cu cartofi prăjiți și muștar",se1_desc:"Mici, cartofi prăjiți, muștar (300gr/180gr/100gr)",se2_name:"Ceafă de porc la grill",se2_desc:"Ceafă de porc (200gr)",se3_name:"Scăriță de porc BBQ cu cartofi ondulați și sos rossa",se3_desc:"Scăriță de porc, cartofi, sos bbq, sos rossa (400gr/180gr/60gr/60gr)",se4_name:"Cotlet de porc Voyage cu cartofi bărcuță",se4_desc:"Carne porc, cartofi, mozzarella (200gr/200gr/100gr)",se5_name:"Cotlet de porc cu os gratinat cu camambert, cartofi copți și sos piri-piri",se5_desc:"Cotlet de porc, cartofi, camambert (300gr/180gr/80gr)",se6_name:"Rulou din mușchi de porc cu bacon, cartofi umpluți cu bacon și cheddar și sos gravy",se6_desc:"Mușchiuleț, cartofi, bacon, cheddar (180gr/170gr/60gr/60gr)",se7_name:"Ciolan de purcel la cuptor cu cartofi țărănești și murături",se7_desc:"Ciolan, cartofi (700gr/180gr)",se8_name:"Mușchi de porc umplut cu cremă de brânză, ceapă verde și bacon, cartofi copți zdrobiți",se8_desc:"Carne porc, cartofi, bacon, cremă brânză (180gr/200gr/80gr/50gr)",se9_name:"Mușchi țigănesc din ceafă de porc cu ochi de ou, slănină și cartofi bavarezi",se9_desc:"Ceafă de porc, cartofi, ouă, făină (220gr/180gr/100gr/30gr)",se10_name:"Tocănița de mistreț cu cartofi noi aromați și salată de ardei copți",se10_desc:"Carne mistreț, cartofi, ardei copți (300gr/180gr/100gr)",se11_name:"Ciolan de porc crocant, afumat cu iahnie de fasole și castraveți murați",se11_desc:"Ciolan afumat, fasole, murături (1000gr/250gr/100gr)",se12_name:"Snițel Vienez din mușchi de porc cu salată coleslaw",se12_desc:"Mușchi de porc, maioneză, pesmet, ouă (350gr/50gr/40gr/30gr)",bu1_name:"4 You Burger",bu1_desc:"Burgeri sucosi in sos cremos de cheddar, cu cartofi prajiti crocanti",bu2_name:"Burger Voyage de vită Black Angus \"înecat în cheddar\"",bu2_desc:"Carne vită, chiflă, roșii, bacon, cheddar, ceapă (150g/80g/30g/20g/20g/15g)",bu3_name:"Burger Bacon&Chilli de vită Black Angus",bu3_desc:"Carne vită, chiflă, bacon, cheddar, roșii, jalapeño (150g/80g/20g/20g/20g/15g)",bu4_name:"Smashed burger double de vită",bu4_desc:"Carne vită, chiflă, cheddar, roșii, ceapă (150g/80g/20g/20g/15g)",bu5_name:"Burger Double mix vită și pui crispy",bu5_desc:"Carne de pui, carne de vită, chiflă, bacon, cheddar, roșii, castraveți murați",bu6_name:"French Tacos cu Crispy de pui, mozzarella și sos cheddar",bu6_desc:"Crispy de pui, mozzarella, cheddar, porumb, roșii, tortilla (180g/80g/40g/40g/40g)",bu7_name:"4YOU platou burger (4 jumătăți de burger Angus în sos cheddar)",bu7_desc:"Carne vită, chiflă, cheddar, roșii, ceapă (150g/80g/20g/20g/15g)",le1_name:"Gulaș de fasole",le1_desc:"Costiță afumată, cârnați afumați, fasole, morcovi (70g/50g/30g/15g)",le2_name:"Ciorbă de burtă",le2_desc:"Burtă vită, smântână, ouă, morcovi (100g/50g/20g/15g)",le3_name:"Ciorbă țărănească de legume",le3_desc:"Morcovi, țelină, fasole verde, mazăre verde, varză (80g/60g/30g/30g/20g)",le4_name:"Ciorbă țărănească de porc",le4_desc:"Carne de porc, morcovi, țelină, fasole verde, mazăre verde, varză",le5_name:"Ciorbă țărănească de vită",le5_desc:"Carne de vită, morcovi, țelină, fasole verde, mazăre verde, varză",le6_name:"Supă cremă cheddar cu broccoli și chips de bacon",le6_desc:"Cheddar, broccoli, bacon (100g/80g/30g)",le7_name:"Supă cremă de ciuperci cu crutoane",le7_desc:"Ciuperci, ceapă, lapte, făină (100g/80g/40g/15g)",vo1_name:"Platou Voyage (4 persoane) — 300 LEI",vo1_desc:"Ciolan întreg afumat, ruladă de pui umplut cu ciuperci, mozzarella, prosciutto crudo învelit în bacon, frigărui de pui cu legume, crispy de pui, cotlet de porc cu os, ceafă de porc. Garnituri: cartofi copți în coajă, cartofi wedges, orez prăjit. Salată asortată",vo2_name:"Platou Grill (4 persoane) — 350 LEI",vo2_desc:"Rib-Eye steak de vită, mici la grill, ceafă de porc la grill, piept de pui la grill, scăriță de porc BBQ. Garnituri: cartofi prăjiți, cartofi bărcuță. Sosuri: sos chimichurri, muștar",ma1_name:"Os de vită cu măduvă, pâine prăjită și sos de iaurt cu usturoi",ma1_desc:"Os de vită, pâine, iaurt (250g/180g/80g)",ma2_name:"Biftec tartar",ma2_desc:"Carne de vită, ouă, muștar, worchester, ketchup (180gr/30gr/25g/25g/20g)",ma3_name:"Rib-Eye steak on fries cu sos secret",ma3_desc:"Steak de vită, cartofi, muștar, miere (250g/180g/40g/25g)",ma4_name:"Coaste de vită slow cooked cu cartofi ondulați și sos gravy",ma4_desc:"Coaste de vită, cartofi, sos (250g/180g/80g)",ma5_name:"Mușchi de vită, camambert învelit în bacon cu cartofi aurii, pere caramelizat și sos brun",ma5_desc:"Mușchi de vită, cartofi, camambert, miere (200g/180g/100g/50g)",ma6_name:"Surf`n`Turf (Steak de vită cu creveți) pe pat de sparanghel cu sos piper verde",ma6_desc:"Mușchi de vită, creveți, smântână (200g/150g/35g)",ma7_name:"T-Bone steak cu ciuperci aromatizate și patatas bravas cu sos de piper verde",ma7_desc:"Steak de vită, cartofi, ciuperci, smântână (400g/180g/150g/20g)",ma8_name:"Antricot de vită Australian (inclusiv garnitură și sos la alegere)",ma8_desc:"Carne de vită (250g)",ma9_name:"Steak Tomahawk (1kg) cu cartofi cu rozmarin, legume tempura și sos brun",ma9_desc:"Steak de vită, cartofi, făină (1000g/200g/200g/20g)",sz1_name:"Snițel din piept de pui",sz1_desc:"Piept de pui, făină, ouă, pesmet (180g/15g/15g/15g)",sz2_name:"Palermo din piept de pui",sz2_desc:"Piept de pui, făină, ouă, pesmet, lapte (180g/15g/15g/15g/10g)",sz3_name:"Piept de pui la grill",sz3_desc:"Piept de pui (200g)",sz4_name:"Cordon bleu din piept de pui",sz4_desc:"Piept de pui, mozzarella, șuncă, făină, ouă, pesmet (180g/100g/30g/10g/10g/10g)",sz5_name:"Crispy de pui cu cartofi pai și sos alb cu usturoi",sz5_desc:"Piept de pui, cartofi, fulgi de porumb, smântână, ouă, făină, pesmet",sz6_name:"Frigărui de pui la grill cu legume, cartofi copți cu usturoi și sos tzatziki",sz6_desc:"Piept de pui, cartofi, sos tzatziki (200gr/180gr/80gr)",sz7_name:"Pui umplut cu feta, măsline, ardei copți și pireu de cartofi cu bacon",sz7_desc:"Piept de pui, cartofi piure, feta, măsline, ardei copți, bacon (180g/180gr/60g/30g/30g/30g)",sz8_name:"Șnițel Voyage cu Mac`n`Cheese și cartofi wedges",sz8_desc:"Piept de pui, cartofi, paste, cheddar (180g/180g/60g/30g)",sz9_name:"Piept de pui gratinat cu broccoli, legume sote și sos gorgonzola",sz9_desc:"Piept de pui, legume sote, broccoli, smântână de gătit, gorgonzola (180gr/180gr/60gr/50gr/50g)",sz10_name:"Pui crestat cu roșii, cașcaval și bacon, cartofi gratinați și sos cheddar",sz10_desc:"Piept de pui, cartofi gratinați, cașcaval, bacon, sos cheddar",sz11_name:"Ruladă de pui umplut cu ciuperci, mozzarella, prosciutto crudo, cu cartofi ondulați",sz11_desc:"Piept de pui, cartofi, mozzarella, ciuperci, prosciutto crudo (180gr/180gr/80gr/50gr/40gr)",sz12_name:"Piept de pui umplut cu mere și camambert învelit în prosciutto crudo cu piure de cartofi cu broccoli",sz12_desc:"Piept de pui, cartofi, mix cașcaval, bacon, camambert, mere (180gr/180gr/120gr/50gr/50gr/50gr)",sz13_name:"Piept de rață cu pireu de cartofi, varză roșie călită și sos de fructe",sz13_desc:"Piept de rață, cartofi, varză roșie, sos de fructe (250gr/180gr/80gr/50gr)",el1_name:"Bruschette mixt",el1_desc:"Pâine, roșii, guacamole, prosciutto crudo, mozzarella (120g/60g/60g/40g/40g)",el2_name:"Platou brânzeturi (2 persoane)",el2_desc:"Mozzarella, emmenthaler, brie, camambert, gorgonzola, prosciutto crudo, nuci, miere (100g/100g/100g/100g/75g)",el3_name:"Cașcaval pane cu cartofi prăjiți și sos alb",el3_desc:"Mozzarella, cartofi prăjiți, usturoi, smântână (150g/140g/80g)",el4_name:"Omletă cu șuncă și mozzarella",el4_desc:"Ouă, șuncă, mozzarella (150g/100g/80g)",el5_name:"Omletă țărănească",el5_desc:"Ouă, cârnați, mozzarella, ardei, ceapă (150g/100g/80g/50g/50g)",el6_name:"Bacon&Eggs cu mozzarella și pâine prăjită",el6_desc:"Ouă, bacon, mozzarella, pâine (150g/100g/80g/80g)",sa1_name:"Salată cu piept de pui Panko",sa1_desc:"Piept de pui, salată, roșii, castraveți, ceapă, iaurt, feta (120g/100g/60g/50g/30g/30g/20g)",sa2_name:"Salată Cezar",sa2_desc:"Piept de pui, salată, ouă, crutoane, sos (120g/100g/30g/20g/20g)",sa3_name:"Salată de pui cu avocado",sa3_desc:"Piept de pui, salată, avocado, mozzarella, măsline, roșii cherry, ciuperci, dressing de muștar cu miere",sa4_name:"Salată cu creveți",sa4_desc:"Creveți, ruccola, iceberg, avocado, mango, vinegrette (150g/75g/75g/50g/50g/20g)",sa5_name:"Salată Voyage cu pui Crispy și salsa de iaurt",sa5_desc:"Piept de pui, salată, roșii, avocado, mozzarella (120g/100g/75g/75g/50g)",tab_desert:"Desert",ds1_name:"Tiramisu",ds1_desc:"Pișcoturi, mascarpone, ouă, cafea (65g/45g/35g/25g)",ds2_name:"Profiterol cu ciocolată, înghețată și frișcă",ds2_desc:"Profiterol, înghețată, frișcă (100g/80g/80g)",ds3_name:"Profiterol cu fructe, înghețată și frișcă",ds3_desc:"Profiterol, fructe, înghețată, frișcă (100g/80g/80g/60g)",ds4_name:"Cheesecake",ds4_desc:"Mascarpone, frișcă, biscuiți, nucă (75g/45g/50g/30g)",ds5_name:"Brownie cu ciocolată și înghețată de vanilie",ds5_desc:"Ouă, făină, unt, lapte, înghețată (75g/60g/40g/30g/30g)",ds6_name:"Clătite cu sos fistic și mix de ciocolată",ds6_desc:"Ouă, ciocolată, fistic, făină, unt, lapte (75g/75g/60g/50g/40g/30g)",ds7_name:"Papanași prăjiți cu sos de afine și smântână",ds7_desc:"Brânză, ouă, smântână, sos afine, făină (100g/60g/50g/50g/25g)",tab_desert:"Desert",ds1_name:"Tiramisu",ds1_desc:"Pișcoturi, mascarpone, ouă, cafea (65g/45g/35g/25g)",ds2_name:"Profiterol cu ciocolată, înghețată și frișcă",ds2_desc:"Profiterol, înghețată, frișcă (100g/80g/80g)",ds3_name:"Profiterol cu fructe, înghețată și frișcă",ds3_desc:"Profiterol, fructe, înghețată, frișcă (100g/80g/80g/60g)",ds4_name:"Cheesecake",ds4_desc:"Mascarpone, frișcă, biscuiți, nucă (75g/45g/50g/30g)",ds5_name:"Brownie cu ciocolată și înghețată de vanilie",ds5_desc:"Ouă, făină, unt, lapte, înghețată (75g/60g/40g/30g/30g)",ds6_name:"Clătite cu sos fistic și mix de ciocolată",ds6_desc:"Ouă, ciocolată, fistic, făină, unt, lapte (75g/75g/60g/50g/40g/30g)",ds7_name:"Papanași prăjiți cu sos de afine și smântână",ds7_desc:"Brânză, ouă, smântână, sos afine, făină (100g/60g/50g/50g/25g)"},
+  hu: { nav_home:"Főoldal",nav_about:"Rólunk",nav_menu:"Étlap",nav_gallery:"Galéria",nav_contact:"Kapcsolat",hero_eyebrow:"EST. 2024 — NAGYKÁROLY, ROMÁNIA",hero_tagline:"Gasztronómiai utazás a város szívében",hero_cta:"Étlap felfedezése",scroll:"Görgess",about_label:"A mi történetünk",about_title:"Ahol az íz művészetté válik",about_p1:"A Restaurant Voyage az autentikus gasztronómia iránt érzett szenvedélyből született, azzal a céllal, hogy kivételes kulináris élményt nyújtson Nagykároly szívében.",about_p2:"Minden fogás egy történetet mesél el — gondosan válogatott alapanyagok, kifinomult technikák és olyan tálalás, amely az étkezést az érzékek utazásává változtatja.",feat1_title:"Friss alapanyagok",feat1_sub:"Napi válogatás",feat2_title:"Elegáns légkör",feat2_sub:"Kifinomult design",feat3_title:"Nemzetközi konyha",feat3_sub:"Kulináris sokszínűség",feat4_title:"Kifogástalan kiszolgálás",feat4_sub:"Elkötelezett csapat",menu_label:"Konyhánk",menu_title:"Étlap",menu_sub:"Gondos fogásválogatás minden ízléshez és alkalomhoz",tab_starters:"Előételek",tab_soups:"Levesek",tab_mains:"Főételek",tab_pizza:"Pizza & Tészta",tab_desserts:"Desszertek",tab_drinks:"Italok",gallery_label:"Hangulat",gallery_title:"Galéria",photo_placeholder:"Fotó",contact_label:"Találj meg minket",contact_title:"Kapcsolat",contact_address_label:"Cím",contact_phone_label:"Telefon",contact_email_label:"Email",hours_title:"Nyitvatartás",day_mon_fri:"Hétfő — Szombat",time_mon_fri:"8:00 — 22:00",day_sat:"Szombat",time_sat:"8:00 — 22:00",day_sun:"Vasárnap",time_sun:"10:00 — 22:00",reserve_btn:"Telefonos foglalás",established:"Alapítva",footer_copy:"© 2024 Restaurant Voyage. Minden jog fenntartva.",s1_name:"Étel neve",s1_desc:"Rövid leírás",s2_name:"Étel neve",s2_desc:"Rövid leírás",s3_name:"Étel neve",s3_desc:"Rövid leírás",s4_name:"Étel neve",s4_desc:"Rövid leírás",su1_name:"Étel neve",su1_desc:"Rövid leírás",su2_name:"Étel neve",su2_desc:"Rövid leírás",su3_name:"Étel neve",su3_desc:"Rövid leírás",m1_name:"Étel neve",m1_desc:"Rövid leírás",m2_name:"Étel neve",m2_desc:"Rövid leírás",m3_name:"Étel neve",m3_desc:"Rövid leírás",m4_name:"Étel neve",m4_desc:"Rövid leírás",m5_name:"Étel neve",m5_desc:"Rövid leírás",m6_name:"Étel neve",m6_desc:"Rövid leírás",p1_name:"Étel neve",p1_desc:"Rövid leírás",p2_name:"Étel neve",p2_desc:"Rövid leírás",p3_name:"Étel neve",p3_desc:"Rövid leírás",p4_name:"Étel neve",p4_desc:"Rövid leírás",d1_name:"Étel neve",d1_desc:"Rövid leírás",d2_name:"Étel neve",d2_desc:"Rövid leírás",d3_name:"Étel neve",d3_desc:"Rövid leírás",dr1_name:"Ital neve",dr1_desc:"Rövid leírás",dr2_name:"Ital neve",dr2_desc:"Rövid leírás",dr3_name:"Ital neve",dr3_desc:"Rövid leírás",dr4_name:"Ital neve",dr4_desc:"Rövid leírás" ,tab_paste:"Tészta",tab_pizza:"Pizza",tab_hal:"Hal",tab_plato:"Tálak",tab_sertes:"Sertés",tab_burger:"Burger & Tacos",tab_levesek:"Levesek",tab_marha:"Marha",tab_szarnyas:"Szárnyas",tab_eloetal:"Előétel",tab_salata:"Saláta",pa1_name:"Penne/Spaghette Carbonara",pa1_desc:"Tészta, bacon, főzőtejszín, parmezán",pa2_name:"Spagetti krémes szószban, csirkemell steak-el",pa2_desc:"Tészta, csirkemell, paradicsomos szósz, főzőtejszín",pa3_name:"Kemencében sült tortellini csirkemellel, gombával és baconnel",pa3_desc:"Tészta, csirkemell, gomba, bacon, főzőtejszín",pa4_name:"Tagliatelle marhabélszínnel és erdei gombával",pa4_desc:"Tészta, marha bélszín, erdei gomba",pa5_name:"Négysajtos tészta pirított baconnel",pa5_desc:"Tészta, sajt mix, főzőtejszín",pa6_name:"Tagliatelle tenger gyümölcseivel, koktélparadicsom szószban",pa6_desc:"Tészta, tenger gyümölcsei, paradicsom",pa7_name:"Arrabbiata tészta (penne/spagetti)",pa7_desc:"Tészta, paradicsomos szósz, fokhagyma, csili",pa8_name:"Mac&Cheese csirkeszárnyakkal",pa8_desc:"Tészta, csirkeszárny, cheddar, főzőtejszín, bacon",pz1_name:"Pizza Margherita",pz1_desc:"Alap, paradicsomos szósz, mozzarella",pz2_name:"Pizza Prosciutto",pz2_desc:"Alap, mozzarella, sonka",pz3_name:"Pizza Prosciutto e funghi",pz3_desc:"Alap, mozzarella, sonka, gomba",pz4_name:"Pizza Prosciutto cu porumb",pz4_desc:"Alap, mozzarella, sonka, kukorica",pz5_name:"Pizza Diavola cu Jalapeño",pz5_desc:"Alap, mozzarella, szalámi, jalapeño",pz6_name:"Pizza Capricciosa",pz6_desc:"Alap, mozzarella, sonka, gomba, articsóka",pz7_name:"Pizza Hawaii",pz7_desc:"Alap, mozzarella, bacon, kukorica, ananász",pz8_name:"Pizza Quattro Formaggi",pz8_desc:"Alap, mozzarella, emmentáli, camembert, gorgonzola",pz9_name:"Pizza cu Ton",pz9_desc:"Alap, mozzarella, tonhal, vöröshagyma",pz10_name:"Pizza Quattro Stagioni",pz10_desc:"Alap, mozzarella, sonka, szalámi, gomba, kukorica",pz11_name:"Pizza Fructe de mare",pz11_desc:"Alap, mozzarella, tengeri gyümölcs koktél, garnéla",pz12_name:"Pizza Mexicana",pz12_desc:"Alap, mozzarella, bacon, szalámi, vörösbab, kukorica, sült paprika, jalapeño",pz13_name:"Pizza Țărănească",pz13_desc:"Alap, mozzarella, szalámi, kolbász, kapia paprika, vöröshagyma, csili, tojás",pz14_name:"Pizza Prosciutto Crudo",pz14_desc:"Alap, mozzarella, prosciutto crudo, rukkola, koktélparadicsom, parmezán",pz15_name:"Pizza Tutto Carni",pz15_desc:"Alap, mozzarella, sonka, szalámi, bacon, kolbász, gomba, kukorica",pz16_name:"Pizza Vegetariana",pz16_desc:"Alap, mozzarella, cukkini, padlizsán, gomba, piros paprika, paradicsom, olívabogyó",h1_name:"Tintahal karikák római módra chips burgonyával és tartár mártással",h1_desc:"Kalamári, burgonya, majonéz, liszt",h2_name:"Sült pisztráng polentával, sós túróval, tejföllel és fokhagyma szósszal",h2_desc:"Pisztráng, kukoricaliszt, sós túró, főzőtejszín",h3_name:"Roppanós süllő sült rizzsel és holland szósszal",h3_desc:"Süllő, rizs, tojás, vaj",h4_name:"Kataif garnéla mangós avokádótartárral és édes-csípős szósszal",h4_desc:"Garnéla, avokádó, mangó, szósz",h5_name:"Serpenyős pikáns tengeri gyümölcs mix",h5_desc:"Tengeri gyümölcsök, paradicsomos szósz",h6_name:"Lazac gombaszószban, mexikói rizzsel és édes-csípős szósszal",h6_desc:"Lazac, rizs, gomba, vaj",h7_name:"Fritto Misto sültburgonyával és tartár mártással",h7_desc:"Tengeri gyümölcsök, burgonya, majonéz, liszt",h8_name:"Lazac steak brokkoli ágyon, holland szósszal",h8_desc:"Lazac, brokkoli, tojás, vaj",h9_name:"Sült polip, kemencés puliszkával és friss salátával",h9_desc:"Polip, kukoricaliszt",pl1_name:"Grilltál (4 személyes)",pl1_desc:"Rib-Eye marha steak, miccs, sertéstarja, csirkemell, BBQ sertésoldalas. Köretek: hasábburgonya, csónak burgonya. Szószok: chimichurri, mustár",pl2_name:"Grilltál (4 személyes)",pl2_desc:"Rib-Eye marha steak, miccs, sertéstarja, csirkemell, BBQ sertésoldalas. Köretek: hasábburgonya, csónak burgonya. Szószok: chimichurri, mustár",se1_name:"Miccs (5 db.) hasábburgonyával és mustárral",se1_desc:"Miccs, hasábburgonya, mustár",se2_name:"Sertéstarja grillen",se2_desc:"Sertéstarja (200gr)",se3_name:"BBQ sertésoldalas csavart burgonyával és rossa szósszal",se3_desc:"Sertésoldalas, burgonya, bbq szósz, rossa szósz",se4_name:"Sertéskaraj Voyage módra csónak burgonyával",se4_desc:"Sertéskaraj, burgonya, mozzarella",se5_name:"Csontos sertéskaraj kemencében, camembert-el, héjas burgonyával és piri-piri szósszal",se5_desc:"Sertéskaraj, burgonya, camembert",se6_name:"Sertésszűzből készült tekercs baconnel, cheddarral töltött burgonya gravy szósszal",se6_desc:"Sertésszűz, burgonya, bacon, cheddar",se7_name:"Malaccsülök kemencében sütve parasztburgonyával és savanyúsággal",se7_desc:"Sertéscsülök, burgonya",se8_name:"Krémsajttal és zöldhagymával töltött sertésszűz sült, törtburgonyával",se8_desc:"Sertésszűz, burgonya, bacon, krémsajt",se9_name:"Cigánypecsenye sertéstarjából, tükörtojással, szalonnával és bajor burgonyával",se9_desc:"Sertéstarja, burgonya, tojás, liszt",se10_name:"Vaddisznópörkölt aromatizált újburgonyával és sült paprikával",se10_desc:"Vaddisznóhús, burgonya, sült paprika",se11_name:"Füstölt, ropogós sertéscsülök babfőzelékkel és savanyú uborkával",se11_desc:"Füstölt sertéscsülök, bab, savanyúság",se12_name:"Bécsi szelet sertésszűzből coleslaw salátával",se12_desc:"Sertésszűz, majonéz, zsemlemorzsa, tojás",bu1_name:"4 You Burger",bu1_desc:"Szaftos burgerek krémes cheddar szószban, ropogós sült krumplival",bu2_name:"Voyage marhaburger (Black Angus) cheddar fürdőben",bu2_desc:"Marhahús, zsemle, paradicsom, bacon, cheddar, hagyma",bu3_name:"Bacon&Chilli marhaburger (Black Angus)",bu3_desc:"Marhahús, zsemle, bacon, cheddar, paradicsom, jalapeño",bu4_name:"Duplahúsos marha smashed burger",bu4_desc:"Marhahús, zsemle, cheddar, paradicsom, hagyma",bu5_name:"Dupla burger marha és ropogós csirkehússal",bu5_desc:"Csirkehús, marhahús, zsemle, bacon, cheddar, paradicsom, savanyú uborka",bu6_name:"Ropogós csirkés French tacos mozzarellával és cheddar szósszal",bu6_desc:"Crispy csirke, mozzarella, cheddar, kukorica, paradicsom, tortilla",bu7_name:"4YOU burgertál (4 fél Angus marhaburger cheddar szószban, sült krumplival)",bu7_desc:"Marhahús, zsemle, cheddar, paradicsom, hagyma",le1_name:"Babgulyás",le1_desc:"Füstölt oldalas, füstölt kolbász, bab, sárgarépa",le2_name:"Pacalleves",le2_desc:"Marha bendő, tejföl, tojás, sárgarépa",le3_name:"Zöldséges parasztcsorba",le3_desc:"Sárgarépa, zeller, zöldbab, zöldborsó, káposzta",le4_name:"Sertéshúsos parasztcsorba",le4_desc:"Sertéshús, sárgarépa, zeller, zöldbab, zöldborsó, káposzta",le5_name:"Marhahúsos parasztcsorba",le5_desc:"Marhahús, sárgarépa, zeller, zöldbab, zöldborsó, káposzta",le6_name:"Cheddar sajtkrémleves brokkolival és bacon chipsszel",le6_desc:"Cheddar, brokkoli, bacon",le7_name:"Gombakrémleves krutonnal",le7_desc:"Gomba, hagyma, tej, liszt",vo1_name:"Voyage tál (4 személyes) — 300 LEI",vo1_desc:"Egész füstölt sertéscsülök, csirkemelltekercs gombával, mozzarellával és prosciutto crudoval töltve baconbe tekerve, csirkemellnyárs, ropogós csirkemellcsíkok, csontos sertéskaraj, grillezett sertéstarja. Köretek: héjában sült burgonya, fűszeres burgonya, sült rizs. Friss vegyes saláta",vo2_name:"Grilltál (4 személyes) — 350 LEI",vo2_desc:"Rib-Eye marha steak, grillezett miccs, grillezett sertéstarja, grillezett csirkemell, BBQ sertésoldalas. Köretek: hasábburgonya, csónak burgonya. Szószok: chimichurri szósz, mustár",ma1_name:"Marha csontvelő pirítóssal és fokhagymás joghurt mártással",ma1_desc:"Marhacont, kenyér, joghurt",ma2_name:"Tatárbifsztek",ma2_desc:"Marhahús, tojás, mustár, worcestershire, ketchup",ma3_name:"Marha Rib-Eye steak sültburgonya ágyon titkos szósszal",ma3_desc:"Marha steak, burgonya, mustár, méz",ma4_name:"Omlós marha oldalas csavart burgonyával és gravy szósszal",ma4_desc:"Marha oldalas, burgonya, szósz",ma5_name:"Marha bélszín, baconbe tekert camembert, arany burgonyával, karamellizált körtével és barna mártással",ma5_desc:"Marha bélszín, burgonya, camembert, méz",ma6_name:"Surf`n`Turf (Marha steak garnélarákkal) zöldspárga ágyon, zöldbors mártással",ma6_desc:"Marha bélszín, garnéla, tejszín",ma7_name:"T-Bone steak aromás gombával, bravas burgonyával és zöldbors mártással",ma7_desc:"Marha steak, burgonya, gomba, tejszín",ma8_name:"Ausztrál Wagyu hátszín (tetszés szerint választható köret és szósz)",ma8_desc:"Marhahús (250g)",ma9_name:"Tomahawk marha steak (1kg) rozmaringos burgonyával, tempurált zöldségekkel és barna mártással",ma9_desc:"Marha steak, burgonya, liszt",sz1_name:"Rántott szelet csirkemellfiléből",sz1_desc:"Csirkemell, liszt, tojás, zsemlemorzsa",sz2_name:"Palermói szelet csirkemellből",sz2_desc:"Csirkemell, liszt, tojás, zsemlemorzsa, tej",sz3_name:"Grillezett csirkemell",sz3_desc:"Csirkemell (200g)",sz4_name:"Cordon bleu csirkemellfiléből",sz4_desc:"Csirkemell, mozzarella, sonka, liszt, tojás, zsemlemorzsa",sz5_name:"Ropogós csirkefalatok sültburgonyával és fokhagyma szósszal",sz5_desc:"Csirkemell, burgonya, kukoricapehely, tejföl, tojás, liszt, zsemlemorzsa",sz6_name:"Csirkemellnyárs zöldségekkel, fokhagymás héjában sült burgonyával és tzatziki szósszal",sz6_desc:"Csirkemell, burgonya, tzatziki szósz",sz7_name:"Csirkemell fetával, olivabogyóval, sült paprikával töltve, baconos burgonyapürével",sz7_desc:"Csirkemell, burgonyapüré, feta, olívabogyó, sült paprika, bacon",sz8_name:"Voyage szelet Mac`n`Cheese-el és fűszeres burgonyával",sz8_desc:"Csirkemell, burgonya, tészta, cheddar",sz9_name:"Kemencében sült csirkemell brokkolival, párolt zöldségekkel és gorgonzola szósszal",sz9_desc:"Csirkemell, párolt zöldség, brokkoli, főzőtejszín, gorgonzola",sz10_name:"Zsebes csirkemell paradicsommal, sajttal és baconnel, kemencében sült sajtos burgonyával és cheddar szósszal",sz10_desc:"Csirkemell, gratinírt burgonya, sajt, bacon, cheddar szósz",sz11_name:"Csirkemelltekercs gombával, mozzarellával és prosciutto crudoval töltve, csavart burgonyával",sz11_desc:"Csirkemell, burgonya, mozzarella, gomba, prosciutto crudo",sz12_name:"Almával és camamberttel töltött csirkemell, prosciutto crudoba tekerve, brokkolis burgonyapürével",sz12_desc:"Csirkemell, burgonya, sajt mix, bacon, camembert, alma",sz13_name:"Sült kacsemell burgonyapürével, párolt lilakáposztával, gyümölcsszósszal",sz13_desc:"Kacsemell, burgonya, lila káposzta, gyümölcsszósz",el1_name:"Vegyes bruschetta tál",el1_desc:"Kenyér, paradicsom, guacamole, prosciutto crudo, mozzarella",el2_name:"Sajttál 2 személyre, dióval, prosciutto crudoval és mézzel",el2_desc:"Mozzarella, emmentáli, brie, camembert, gorgonzola, prosciutto crudo, dió, méz",el3_name:"Rántott sajt sültkrumplival és fokhagymás fehér szósszal",el3_desc:"Mozzarella, burgonya, fokhagyma, tejföl",el4_name:"Sonkás-sajtos omlett, 3 tojásból",el4_desc:"Tojás, sonka, mozzarella",el5_name:"Parasztos rántotta, 3 tojásból",el5_desc:"Tojás, kolbász, mozzarella, paprika, hagyma",el6_name:"Tükörtojás és bacon, pirítóssal",el6_desc:"Tojás, bacon, mozzarella, kenyér",sa1_name:"Panko csirkemell saláta",sa1_desc:"Csirkemell, saláta, paradicsom, uborka, hagyma, joghurt, feta",sa2_name:"Cézársaláta",sa2_desc:"Csirkemell, saláta, tojás, kruton, szósz",sa3_name:"Csirkemellsaláta avokádóval",sa3_desc:"Csirkemell, saláta, avokádó, mozzarella, olívabogyó, koktélparadicsom, gomba, mézes mustár öntet",sa4_name:"Garnélaráksaláta",sa4_desc:"Garnéla, rukkola, jégsaláta, avokádó, mangó, vinaigrette",sa5_name:"Voyage saláta ropogós csirkemellfalatokkal és joghurtszalszával",sa5_desc:"Csirkemell, saláta, paradicsom, avokádó, mozzarella",tab_desert:"Desszert",ds1_name:"Tiramisu",ds1_desc:"Piskóta, mascarpone, tojás, kávé (65g/45g/35g/25g)",ds2_name:"Csokoládés profiterol fagyival és tejszínhabbal",ds2_desc:"Profiterol, fagylalt, tejszínhab (100g/80g/80g)",ds3_name:"Gyümölcsös profiterol fagyival és tejszínhabbal",ds3_desc:"Profiterol, gyümölcs, fagylalt, tejszínhab (100g/80g/80g/60g)",ds4_name:"Sajtorta",ds4_desc:"Mascarpone, tejszínhab, keksz, dió (75g/45g/50g/30g)",ds5_name:"Csokoládés brownie vaníliafagyival",ds5_desc:"Tojás, liszt, vaj, tej, fagylalt (75g/60g/40g/30g/30g)",ds6_name:"Palacsinta pisztáciaszósszal és vegyes csokoládéval",ds6_desc:"Tojás, csokoládé, pisztácia, liszt, vaj, tej (75g/75g/60g/50g/40g/30g)",ds7_name:"Sült túrófánk áfonyaszósszal és tejföllel",ds7_desc:"Túró, tojás, tejföl, áfonyaszósz, liszt (100g/60g/50g/50g/25g)",tab_desert:"Desszert",ds1_name:"Tiramisu",ds1_desc:"Piskóta, mascarpone, tojás, kávé",ds2_name:"Csokoládés profiterol fagyival és tejszínhabbal",ds2_desc:"Profiterol, fagylalt, tejszínhab",ds3_name:"Gyümölcsös profiterol fagyival és tejszínhabbal",ds3_desc:"Profiterol, gyümölcs, fagylalt, tejszínhab",ds4_name:"Sajtorta",ds4_desc:"Mascarpone, tejszínhab, keksz, dió",ds5_name:"Csokoládés brownie vaníliafagyival",ds5_desc:"Tojás, liszt, vaj, tej, fagylalt",ds6_name:"Palacsinta pisztáciaszósszal és vegyes csokoládéval",ds6_desc:"Tojás, csokoládé, pisztácia, liszt, vaj, tej",ds7_name:"Sült túrófánk áfonyaszósszal és tejföllel",ds7_desc:"Túró, tojás, tejföl, áfonyaszósz, liszt"},
+  en: { nav_home:"Home",nav_about:"About",nav_menu:"Menu",nav_gallery:"Gallery",nav_contact:"Contact",hero_eyebrow:"EST. 2024 — CAREI, ROMANIA",hero_tagline:"A culinary journey in the heart of the city",hero_cta:"Explore Menu",scroll:"Scroll",about_label:"Our story",about_title:"Where taste becomes art",about_p1:"Restaurant Voyage was born from a passion for authentic gastronomy and the desire to offer an exceptional culinary experience in the heart of Carei.",about_p2:"Every dish tells a story — carefully selected ingredients, refined techniques and a presentation that transforms a meal into a journey of the senses.",feat1_title:"Fresh Ingredients",feat1_sub:"Daily selection",feat2_title:"Elegant Atmosphere",feat2_sub:"Refined design",feat3_title:"International Cuisine",feat3_sub:"Culinary diversity",feat4_title:"Impeccable Service",feat4_sub:"Dedicated team",menu_label:"Our Kitchen",menu_title:"Menu",menu_sub:"A curated selection of dishes for every taste and occasion",tab_starters:"Starters",tab_soups:"Soups",tab_mains:"Main Courses",tab_pizza:"Pizza & Pasta",tab_desserts:"Desserts",tab_drinks:"Drinks",gallery_label:"Atmosphere",gallery_title:"Gallery",photo_placeholder:"Photo",contact_label:"Find us",contact_title:"Contact",contact_address_label:"Address",contact_phone_label:"Phone",contact_email_label:"Email",hours_title:"Opening Hours",day_mon_fri:"Monday — Saturday",time_mon_fri:"8:00 — 22:00",day_sat:"Saturday",time_sat:"8:00 — 22:00",day_sun:"Sunday",time_sun:"10:00 — 22:00",reserve_btn:"Phone reservation",established:"Established",footer_copy:"© 2024 Restaurant Voyage. All rights reserved.",s1_name:"Dish name",s1_desc:"Short description",s2_name:"Dish name",s2_desc:"Short description",s3_name:"Dish name",s3_desc:"Short description",s4_name:"Dish name",s4_desc:"Short description",su1_name:"Dish name",su1_desc:"Short description",su2_name:"Dish name",su2_desc:"Short description",su3_name:"Dish name",su3_desc:"Short description",m1_name:"Dish name",m1_desc:"Short description",m2_name:"Dish name",m2_desc:"Short description",m3_name:"Dish name",m3_desc:"Short description",m4_name:"Dish name",m4_desc:"Short description",m5_name:"Dish name",m5_desc:"Short description",m6_name:"Dish name",m6_desc:"Short description",p1_name:"Dish name",p1_desc:"Short description",p2_name:"Dish name",p2_desc:"Short description",p3_name:"Dish name",p3_desc:"Short description",p4_name:"Dish name",p4_desc:"Short description",d1_name:"Dish name",d1_desc:"Short description",d2_name:"Dish name",d2_desc:"Short description",d3_name:"Dish name",d3_desc:"Short description",dr1_name:"Drink name",dr1_desc:"Short description",dr2_name:"Drink name",dr2_desc:"Short description",dr3_name:"Drink name",dr3_desc:"Short description",dr4_name:"Drink name",dr4_desc:"Short description" ,tab_paste:"Pasta",tab_pizza:"Pizza",tab_hal:"Fish",tab_plato:"Platters",tab_sertes:"Pork",tab_burger:"Burger & Tacos",tab_levesek:"Soups",tab_marha:"Beef",tab_szarnyas:"Poultry",tab_eloetal:"Starters",tab_salata:"Salads",pa1_name:"Penne/Spaghette Carbonara",pa1_desc:"Paste, bacon, smântână de gătit, parmezan (200g/100g/100g/75g)",pa2_name:"Spaghette cu sos cremos și steak din piept de pui",pa2_desc:"Paste, piept de pui, sos de roșii, smântână de gătit (200g/180g/80g/70g)",pa3_name:"Tortellini gratinat cu piept de pui, ciuperci și bacon",pa3_desc:"Paste, piept de pui, ciuperci, bacon, smântână de gătit (200g/150g/75g/50g/25g)",pa4_name:"Tagliatelle cu mușchi de vită și ciuperci de pădure",pa4_desc:"Paste, mușchi de vită, ciuperci de pădure",pa5_name:"Penne/Spaghette Quattro Formaggi cu bacon prăjit",pa5_desc:"Paste, mix brânzeturi, smântână de gătit",pa6_name:"Tagliatelle cu fructe de mare și sos de roșii cherry",pa6_desc:"Paste, fructe de mare, roșii (200g/150g/80g)",pa7_name:"Penne/Spaghette Arrabbiata",pa7_desc:"Paste, sos roșii, usturoi, ardei iute (200g/150g/35g/20g)",pa8_name:"Mac&Cheese cu chicken wings",pa8_desc:"Paste, aripi de pui, cheddar, smântână de gătit, bacon (200g/200g/60g/45g/40g)",pz1_name:"Pizza Margherita",pz1_desc:"Blat, sos de roșii, mozzarella",pz2_name:"Pizza Prosciutto",pz2_desc:"Blat, sos de roșii, mozzarella, șuncă",pz3_name:"Pizza Prosciutto e funghi",pz3_desc:"Blat, sos de roșii, mozzarella, șuncă, ciuperci",pz4_name:"Pizza Prosciutto cu porumb",pz4_desc:"Blat, sos de roșii, mozzarella, șuncă, porumb",pz5_name:"Pizza Diavola cu Jalapeño",pz5_desc:"Blat, sos de roșii, mozzarella, salam, jalapeño",pz6_name:"Pizza Capricciosa",pz6_desc:"Blat, sos de roșii, mozzarella, șuncă, ciuperci, anghinare",pz7_name:"Pizza Hawaii",pz7_desc:"Blat, sos de roșii, mozzarella, bacon, porumb, ananas",pz8_name:"Pizza Quattro Formaggi",pz8_desc:"Blat, sos de roșii, mozzarella, emmenthaler, camambert, gorgonzola",pz9_name:"Pizza cu Ton",pz9_desc:"Blat, sos de roșii, mozzarella, ton, ceapă roșie",pz10_name:"Pizza Quattro Stagioni",pz10_desc:"Blat, sos de roșii, mozzarella, șuncă, salam, ciuperci, porumb",pz11_name:"Pizza Fructe de mare",pz11_desc:"Blat, sos de roșii, mozzarella, cocktail de fructe de mare, creveți",pz12_name:"Pizza Mexicana",pz12_desc:"Blat, sos de roșii, mozzarella, bacon, salam, fasole roșie, porumb, ardei copți, jalapeño",pz13_name:"Pizza Țărănească",pz13_desc:"Blat, sos de roșii, mozzarella, salam, cârnați, ardei kapia, ceapă roșie, ardei iute, ouă",pz14_name:"Pizza Prosciutto Crudo",pz14_desc:"Blat, sos de roșii, mozzarella, prosciutto crudo, ruccola, roșii cherry, parmezan",pz15_name:"Pizza Tutto Carni",pz15_desc:"Blat, sos de roșii, mozzarella, șuncă, salam, bacon, cârnați, ciuperci, porumb",pz16_name:"Pizza Vegetariana",pz16_desc:"Blat, sos de roșii, mozzarella, zuchini, vinete, ciuperci, ardei roșu, roșii, măsline",h1_name:"Calamari a`la romana cu cartofi chips și sos tartar",h1_desc:"Calamari, cartofi, maioneză, făină (180g/180g/50g/30g)",h2_name:"Păstrăv la grill cu polenta gratinat, telemea, smântână și mujdei",h2_desc:"Păstrăv, mălai, telemea, smântână de gătit (250g/250g/60g/40g)",h3_name:"File de șalău crocant cu orez prăjit și sos olandez",h3_desc:"Șalău, orez, ouă, unt (180g/180g/30g/25g)",h4_name:"Creveți Kataif cu tartar de avocado și mango, sos sweet chilli",h4_desc:"Creveți, avocado, mango, sos (200g/50g/40g/30g)",h5_name:"Tigaia picantă cu fructe de mare",h5_desc:"Fructe de mare, sos de roșii (250g/100g)",h6_name:"Somon în sos de ciuperci cu orez mexican și sos sweet chilli",h6_desc:"Somon, orez, ciuperci, unt (180g/180g/50g/30g)",h7_name:"Fritto Misto cu cartofi pai și sos tartar",h7_desc:"Fructe de mare, cartofi, maioneză, făină (200g/180g/50g/30g)",h8_name:"Steak de somon pe pat de broccoli și sos olandez",h8_desc:"Somon, broccoli, ouă, unt",h9_name:"Caracatiță cu polenta gratinat și salata fresh",h9_desc:"Caracatiță, mălai (180g/180g)",pl1_name:"Grill Platter (4 persons)",pl1_desc:"Rib-Eye beef steak, grilled mici, pork neck, chicken breast, BBQ pork ribs. Sides: fries, boat potatoes. Sauces: chimichurri, mustard",pl2_name:"Grill Platter (4 persons)",pl2_desc:"Rib-Eye beef steak, grilled mici, pork neck, chicken breast, BBQ pork ribs. Sides: fries, boat potatoes. Sauces: chimichurri, mustard",se1_name:"Mici (5 buc.) cu cartofi prăjiți și muștar",se1_desc:"Mici, cartofi prăjiți, muștar (300gr/180gr/100gr)",se2_name:"Ceafă de porc la grill",se2_desc:"Ceafă de porc (200gr)",se3_name:"Scăriță de porc BBQ cu cartofi ondulați și sos rossa",se3_desc:"Scăriță de porc, cartofi, sos bbq, sos rossa (400gr/180gr/60gr/60gr)",se4_name:"Cotlet de porc Voyage cu cartofi bărcuță",se4_desc:"Carne porc, cartofi, mozzarella (200gr/200gr/100gr)",se5_name:"Cotlet de porc cu os gratinat cu camambert, cartofi copți și sos piri-piri",se5_desc:"Cotlet de porc, cartofi, camambert (300gr/180gr/80gr)",se6_name:"Rulou din mușchi de porc cu bacon, cartofi umpluți cu bacon și cheddar și sos gravy",se6_desc:"Mușchiuleț, cartofi, bacon, cheddar (180gr/170gr/60gr/60gr)",se7_name:"Ciolan de purcel la cuptor cu cartofi țărănești și murături",se7_desc:"Ciolan, cartofi (700gr/180gr)",se8_name:"Mușchi de porc umplut cu cremă de brânză, ceapă verde și bacon, cartofi copți zdrobiți",se8_desc:"Carne porc, cartofi, bacon, cremă brânză (180gr/200gr/80gr/50gr)",se9_name:"Mușchi țigănesc din ceafă de porc cu ochi de ou, slănină și cartofi bavarezi",se9_desc:"Ceafă de porc, cartofi, ouă, făină (220gr/180gr/100gr/30gr)",se10_name:"Tocănița de mistreț cu cartofi noi aromați și salată de ardei copți",se10_desc:"Carne mistreț, cartofi, ardei copți (300gr/180gr/100gr)",se11_name:"Ciolan de porc crocant, afumat cu iahnie de fasole și castraveți murați",se11_desc:"Ciolan afumat, fasole, murături (1000gr/250gr/100gr)",se12_name:"Snițel Vienez din mușchi de porc cu salată coleslaw",se12_desc:"Mușchi de porc, maioneză, pesmet, ouă (350gr/50gr/40gr/30gr)",bu1_name:"4 You Burger",bu1_desc:"Burgeri sucosi in sos cremos de cheddar, cu cartofi prajiti crocanti",bu2_name:"Burger Voyage de vită Black Angus \"înecat în cheddar\"",bu2_desc:"Carne vită, chiflă, roșii, bacon, cheddar, ceapă (150g/80g/30g/20g/20g/15g)",bu3_name:"Burger Bacon&Chilli de vită Black Angus",bu3_desc:"Carne vită, chiflă, bacon, cheddar, roșii, jalapeño (150g/80g/20g/20g/20g/15g)",bu4_name:"Smashed burger double de vită",bu4_desc:"Carne vită, chiflă, cheddar, roșii, ceapă (150g/80g/20g/20g/15g)",bu5_name:"Burger Double mix vită și pui crispy",bu5_desc:"Carne de pui, carne de vită, chiflă, bacon, cheddar, roșii, castraveți murați",bu6_name:"French Tacos cu Crispy de pui, mozzarella și sos cheddar",bu6_desc:"Crispy de pui, mozzarella, cheddar, porumb, roșii, tortilla (180g/80g/40g/40g/40g)",bu7_name:"4YOU platou burger (4 jumătăți de burger Angus în sos cheddar)",bu7_desc:"Carne vită, chiflă, cheddar, roșii, ceapă (150g/80g/20g/20g/15g)",le1_name:"Gulaș de fasole",le1_desc:"Costiță afumată, cârnați afumați, fasole, morcovi (70g/50g/30g/15g)",le2_name:"Ciorbă de burtă",le2_desc:"Burtă vită, smântână, ouă, morcovi (100g/50g/20g/15g)",le3_name:"Ciorbă țărănească de legume",le3_desc:"Morcovi, țelină, fasole verde, mazăre verde, varză (80g/60g/30g/30g/20g)",le4_name:"Ciorbă țărănească de porc",le4_desc:"Carne de porc, morcovi, țelină, fasole verde, mazăre verde, varză",le5_name:"Ciorbă țărănească de vită",le5_desc:"Carne de vită, morcovi, țelină, fasole verde, mazăre verde, varză",le6_name:"Supă cremă cheddar cu broccoli și chips de bacon",le6_desc:"Cheddar, broccoli, bacon (100g/80g/30g)",le7_name:"Supă cremă de ciuperci cu crutoane",le7_desc:"Ciuperci, ceapă, lapte, făină (100g/80g/40g/15g)",vo1_name:"Voyage Platter (4 persons) — 300 LEI",vo1_desc:"Whole smoked pork knuckle, stuffed chicken roll with mushrooms, mozzarella, prosciutto crudo wrapped in bacon, chicken skewer with vegetables, crispy chicken, bone-in pork chop, grilled pork neck. Sides: jacket potatoes, wedges, fried rice. Fresh mixed salad",vo2_name:"Platou Grill (4 persoane) — 350 LEI",vo2_desc:"Rib-Eye steak de vită, mici la grill, ceafă de porc la grill, piept de pui la grill, scăriță de porc BBQ. Garnituri: cartofi prăjiți, cartofi bărcuță. Sosuri: sos chimichurri, muștar",ma1_name:"Os de vită cu măduvă, pâine prăjită și sos de iaurt cu usturoi",ma1_desc:"Os de vită, pâine, iaurt (250g/180g/80g)",ma2_name:"Biftec tartar",ma2_desc:"Carne de vită, ouă, muștar, worchester, ketchup (180gr/30gr/25g/25g/20g)",ma3_name:"Rib-Eye steak on fries cu sos secret",ma3_desc:"Steak de vită, cartofi, muștar, miere (250g/180g/40g/25g)",ma4_name:"Coaste de vită slow cooked cu cartofi ondulați și sos gravy",ma4_desc:"Coaste de vită, cartofi, sos (250g/180g/80g)",ma5_name:"Mușchi de vită, camambert învelit în bacon cu cartofi aurii, pere caramelizat și sos brun",ma5_desc:"Mușchi de vită, cartofi, camambert, miere (200g/180g/100g/50g)",ma6_name:"Surf`n`Turf (Steak de vită cu creveți) pe pat de sparanghel cu sos piper verde",ma6_desc:"Mușchi de vită, creveți, smântână (200g/150g/35g)",ma7_name:"T-Bone steak cu ciuperci aromatizate și patatas bravas cu sos de piper verde",ma7_desc:"Steak de vită, cartofi, ciuperci, smântână (400g/180g/150g/20g)",ma8_name:"Antricot de vită Australian (inclusiv garnitură și sos la alegere)",ma8_desc:"Carne de vită (250g)",ma9_name:"Steak Tomahawk (1kg) cu cartofi cu rozmarin, legume tempura și sos brun",ma9_desc:"Steak de vită, cartofi, făină (1000g/200g/200g/20g)",sz1_name:"Snițel din piept de pui",sz1_desc:"Piept de pui, făină, ouă, pesmet (180g/15g/15g/15g)",sz2_name:"Palermo din piept de pui",sz2_desc:"Piept de pui, făină, ouă, pesmet, lapte (180g/15g/15g/15g/10g)",sz3_name:"Piept de pui la grill",sz3_desc:"Piept de pui (200g)",sz4_name:"Cordon bleu din piept de pui",sz4_desc:"Piept de pui, mozzarella, șuncă, făină, ouă, pesmet (180g/100g/30g/10g/10g/10g)",sz5_name:"Crispy de pui cu cartofi pai și sos alb cu usturoi",sz5_desc:"Piept de pui, cartofi, fulgi de porumb, smântână, ouă, făină, pesmet",sz6_name:"Frigărui de pui la grill cu legume, cartofi copți cu usturoi și sos tzatziki",sz6_desc:"Piept de pui, cartofi, sos tzatziki (200gr/180gr/80gr)",sz7_name:"Pui umplut cu feta, măsline, ardei copți și pireu de cartofi cu bacon",sz7_desc:"Piept de pui, cartofi piure, feta, măsline, ardei copți, bacon (180g/180gr/60g/30g/30g/30g)",sz8_name:"Șnițel Voyage cu Mac`n`Cheese și cartofi wedges",sz8_desc:"Piept de pui, cartofi, paste, cheddar (180g/180g/60g/30g)",sz9_name:"Piept de pui gratinat cu broccoli, legume sote și sos gorgonzola",sz9_desc:"Piept de pui, legume sote, broccoli, smântână de gătit, gorgonzola (180gr/180gr/60gr/50gr/50g)",sz10_name:"Pui crestat cu roșii, cașcaval și bacon, cartofi gratinați și sos cheddar",sz10_desc:"Piept de pui, cartofi gratinați, cașcaval, bacon, sos cheddar",sz11_name:"Ruladă de pui umplut cu ciuperci, mozzarella, prosciutto crudo, cu cartofi ondulați",sz11_desc:"Piept de pui, cartofi, mozzarella, ciuperci, prosciutto crudo (180gr/180gr/80gr/50gr/40gr)",sz12_name:"Piept de pui umplut cu mere și camambert învelit în prosciutto crudo cu piure de cartofi cu broccoli",sz12_desc:"Piept de pui, cartofi, mix cașcaval, bacon, camambert, mere (180gr/180gr/120gr/50gr/50gr/50gr)",sz13_name:"Piept de rață cu pireu de cartofi, varză roșie călită și sos de fructe",sz13_desc:"Piept de rață, cartofi, varză roșie, sos de fructe (250gr/180gr/80gr/50gr)",el1_name:"Bruschette mixt",el1_desc:"Pâine, roșii, guacamole, prosciutto crudo, mozzarella (120g/60g/60g/40g/40g)",el2_name:"Platou brânzeturi (2 persoane)",el2_desc:"Mozzarella, emmenthaler, brie, camambert, gorgonzola, prosciutto crudo, nuci, miere (100g/100g/100g/100g/75g)",el3_name:"Cașcaval pane cu cartofi prăjiți și sos alb",el3_desc:"Mozzarella, cartofi prăjiți, usturoi, smântână (150g/140g/80g)",el4_name:"Omletă cu șuncă și mozzarella",el4_desc:"Ouă, șuncă, mozzarella (150g/100g/80g)",el5_name:"Omletă țărănească",el5_desc:"Ouă, cârnați, mozzarella, ardei, ceapă (150g/100g/80g/50g/50g)",el6_name:"Bacon&Eggs cu mozzarella și pâine prăjită",el6_desc:"Ouă, bacon, mozzarella, pâine (150g/100g/80g/80g)",sa1_name:"Salată cu piept de pui Panko",sa1_desc:"Piept de pui, salată, roșii, castraveți, ceapă, iaurt, feta (120g/100g/60g/50g/30g/30g/20g)",sa2_name:"Salată Cezar",sa2_desc:"Piept de pui, salată, ouă, crutoane, sos (120g/100g/30g/20g/20g)",sa3_name:"Salată de pui cu avocado",sa3_desc:"Piept de pui, salată, avocado, mozzarella, măsline, roșii cherry, ciuperci, dressing de muștar cu miere",sa4_name:"Salată cu creveți",sa4_desc:"Creveți, ruccola, iceberg, avocado, mango, vinegrette (150g/75g/75g/50g/50g/20g)",sa5_name:"Salată Voyage cu pui Crispy și salsa de iaurt",sa5_desc:"Piept de pui, salată, roșii, avocado, mozzarella (120g/100g/75g/75g/50g)",tab_desert:"Desserts",ds1_name:"Tiramisu",ds1_desc:"Pișcoturi, mascarpone, ouă, cafea (65g/45g/35g/25g)",ds2_name:"Profiterol cu ciocolată, înghețată și frișcă",ds2_desc:"Profiterol, înghețată, frișcă (100g/80g/80g)",ds3_name:"Profiterol cu fructe, înghețată și frișcă",ds3_desc:"Profiterol, fructe, înghețată, frișcă (100g/80g/80g/60g)",ds4_name:"Cheesecake",ds4_desc:"Mascarpone, frișcă, biscuiți, nucă (75g/45g/50g/30g)",ds5_name:"Brownie cu ciocolată și înghețată de vanilie",ds5_desc:"Ouă, făină, unt, lapte, înghețată (75g/60g/40g/30g/30g)",ds6_name:"Clătite cu sos fistic și mix de ciocolată",ds6_desc:"Ouă, ciocolată, fistic, făină, unt, lapte (75g/75g/60g/50g/40g/30g)",ds7_name:"Papanași prăjiți cu sos de afine și smântână",ds7_desc:"Brânză, ouă, smântână, sos afine, făină (100g/60g/50g/50g/25g)",tab_desert:"Desserts",ds1_name:"Tiramisu",ds1_desc:"Pișcoturi, mascarpone, ouă, cafea (65g/45g/35g/25g)",ds2_name:"Profiterol cu ciocolată, înghețată și frișcă",ds2_desc:"Profiterol, înghețată, frișcă (100g/80g/80g)",ds3_name:"Profiterol cu fructe, înghețată și frișcă",ds3_desc:"Profiterol, fructe, înghețată, frișcă (100g/80g/80g/60g)",ds4_name:"Cheesecake",ds4_desc:"Mascarpone, frișcă, biscuiți, nucă (75g/45g/50g/30g)",ds5_name:"Brownie cu ciocolată și înghețată de vanilie",ds5_desc:"Ouă, făină, unt, lapte, înghețată (75g/60g/40g/30g/30g)",ds6_name:"Clătite cu sos fistic și mix de ciocolată",ds6_desc:"Ouă, ciocolată, fistic, făină, unt, lapte (75g/75g/60g/50g/40g/30g)",ds7_name:"Papanași prăjiți cu sos de afine și smântână",ds7_desc:"Brânză, ouă, smântână, sos afine, făină (100g/60g/50g/50g/25g)"}
+};
+
+Object.assign(T.en, {
+  pa1_name:"Penne/Spaghetti Carbonara",
+  pa1_desc:"Pasta, bacon, cooking cream, parmesan (200g/100g/100g/75g)",
+  pa2_name:"Spaghetti with creamy sauce and chicken breast steak",
+  pa2_desc:"Pasta, chicken breast, tomato sauce, cooking cream (200g/180g/80g/70g)",
+  pa3_name:"Gratinated tortellini with chicken breast, mushrooms and bacon",
+  pa3_desc:"Pasta, chicken breast, mushrooms, bacon, cooking cream (200g/150g/75g/50g/25g)",
+  pa4_name:"Tagliatelle with beef tenderloin and wild mushrooms",
+  pa4_desc:"Pasta, beef tenderloin, wild mushrooms",
+  pa5_name:"Penne/Spaghetti Quattro Formaggi with crispy bacon",
+  pa5_desc:"Pasta, cheese mix, cooking cream",
+  pa6_name:"Tagliatelle with seafood and cherry tomato sauce",
+  pa6_desc:"Pasta, seafood, tomatoes (200g/150g/80g)",
+  pa7_name:"Penne/Spaghetti Arrabbiata",
+  pa7_desc:"Pasta, tomato sauce, garlic, hot pepper (200g/150g/35g/20g)",
+  pa8_name:"Mac & Cheese with chicken wings",
+  pa8_desc:"Pasta, chicken wings, cheddar, cooking cream, bacon (200g/200g/60g/45g/40g)",
+  pz1_name:"Pizza Margherita",
+  pz1_desc:"Dough, tomato sauce, mozzarella",
+  pz2_name:"Pizza Prosciutto",
+  pz2_desc:"Dough, tomato sauce, mozzarella, ham",
+  pz3_name:"Pizza Prosciutto e Funghi",
+  pz3_desc:"Dough, tomato sauce, mozzarella, ham, mushrooms",
+  pz4_name:"Pizza Prosciutto with corn",
+  pz4_desc:"Dough, tomato sauce, mozzarella, ham, corn",
+  pz5_name:"Pizza Diavola with jalapeno",
+  pz5_desc:"Dough, tomato sauce, mozzarella, salami, jalapeno",
+  pz6_name:"Pizza Capricciosa",
+  pz6_desc:"Dough, tomato sauce, mozzarella, ham, mushrooms, artichoke",
+  pz7_name:"Pizza Hawaii",
+  pz7_desc:"Dough, tomato sauce, mozzarella, bacon, corn, pineapple",
+  pz8_name:"Pizza Quattro Formaggi",
+  pz8_desc:"Dough, tomato sauce, mozzarella, emmentaler, camembert, gorgonzola",
+  pz9_name:"Tuna Pizza",
+  pz9_desc:"Dough, tomato sauce, mozzarella, tuna, red onion",
+  pz10_name:"Pizza Quattro Stagioni",
+  pz10_desc:"Dough, tomato sauce, mozzarella, ham, salami, mushrooms, corn",
+  pz11_name:"Seafood Pizza",
+  pz11_desc:"Dough, tomato sauce, mozzarella, seafood cocktail, shrimp",
+  pz12_name:"Pizza Mexicana",
+  pz12_desc:"Dough, tomato sauce, mozzarella, bacon, salami, red beans, corn, roasted peppers, jalapeno",
+  pz13_name:"Country-Style Pizza",
+  pz13_desc:"Dough, tomato sauce, mozzarella, salami, sausages, kapia pepper, red onion, hot pepper, eggs",
+  pz14_name:"Pizza Prosciutto Crudo",
+  pz14_desc:"Dough, tomato sauce, mozzarella, prosciutto crudo, arugula, cherry tomatoes, parmesan",
+  pz15_name:"Pizza Tutto Carni",
+  pz15_desc:"Dough, tomato sauce, mozzarella, ham, salami, bacon, sausages, mushrooms, corn",
+  pz16_name:"Vegetarian Pizza",
+  pz16_desc:"Dough, tomato sauce, mozzarella, zucchini, eggplant, mushrooms, red pepper, tomatoes, olives",
+  h1_name:"Calamari a la romana with potato chips and tartar sauce",
+  h1_desc:"Calamari, potatoes, mayonnaise, flour (180g/180g/50g/30g)",
+  h2_name:"Grilled trout with gratinated polenta, telemea, sour cream and garlic sauce",
+  h2_desc:"Trout, cornmeal, telemea cheese, cooking cream (250g/250g/60g/40g)",
+  h3_name:"Crispy pike-perch fillet with fried rice and hollandaise sauce",
+  h3_desc:"Pike-perch, rice, eggs, butter (180g/180g/30g/25g)",
+  h4_name:"Kataifi shrimp with avocado and mango tartare, sweet chilli sauce",
+  h4_desc:"Shrimp, avocado, mango, sauce (200g/50g/40g/30g)",
+  h5_name:"Spicy seafood pan",
+  h5_desc:"Seafood, tomato sauce (250g/100g)",
+  h6_name:"Salmon in mushroom sauce with Mexican rice and sweet chilli sauce",
+  h6_desc:"Salmon, rice, mushrooms, butter (180g/180g/50g/30g)",
+  h7_name:"Fritto Misto with fries and tartar sauce",
+  h7_desc:"Seafood, potatoes, mayonnaise, flour (200g/180g/50g/30g)",
+  h8_name:"Salmon steak on a bed of broccoli with hollandaise sauce",
+  h8_desc:"Salmon, broccoli, eggs, butter",
+  h9_name:"Octopus with gratinated polenta and fresh salad",
+  h9_desc:"Octopus, cornmeal (180g/180g)",
+  pl1_name:"Grill Platter (4 persons)",
+  pl1_desc:"Rib-eye beef steak, grilled mici, pork neck, chicken breast, BBQ pork ribs. Sides: fries, boat potatoes. Sauces: chimichurri, mustard",
+  pl2_name:"Grill Platter (4 persons)",
+  pl2_desc:"Rib-eye beef steak, grilled mici, pork neck, chicken breast, BBQ pork ribs. Sides: fries, boat potatoes. Sauces: chimichurri, mustard",
+  se1_name:"Mici (5 pcs.) with fries and mustard",
+  se1_desc:"Mici, fries, mustard (300g/180g/100g)",
+  se2_name:"Grilled pork neck",
+  se2_desc:"Pork neck (200g)",
+  se3_name:"BBQ pork ribs with crinkle-cut potatoes and rossa sauce",
+  se3_desc:"Pork ribs, potatoes, BBQ sauce, rossa sauce (400g/180g/60g/60g)",
+  se4_name:"Voyage pork chop with boat potatoes",
+  se4_desc:"Pork, potatoes, mozzarella (200g/200g/100g)",
+  se5_name:"Bone-in pork chop gratinated with camembert, baked potatoes and piri-piri sauce",
+  se5_desc:"Pork chop, potatoes, camembert (300g/180g/80g)",
+  se6_name:"Pork tenderloin roll with bacon, bacon-and-cheddar stuffed potatoes and gravy sauce",
+  se6_desc:"Pork tenderloin, potatoes, bacon, cheddar (180g/170g/60g/60g)",
+  se7_name:"Oven-baked pork knuckle with rustic potatoes and pickles",
+  se7_desc:"Knuckle, potatoes (700g/180g)",
+  se8_name:"Pork tenderloin stuffed with cream cheese, green onion and bacon, smashed baked potatoes",
+  se8_desc:"Pork, potatoes, bacon, cream cheese (180g/200g/80g/50g)",
+  se9_name:"Gypsy-style pork neck with sunny-side-up egg, bacon and Bavarian potatoes",
+  se9_desc:"Pork neck, potatoes, eggs, flour (220g/180g/100g/30g)",
+  se10_name:"Wild boar stew with aromatic baby potatoes and roasted pepper salad",
+  se10_desc:"Wild boar meat, potatoes, roasted peppers (300g/180g/100g)",
+  se11_name:"Crispy smoked pork knuckle with bean stew and pickled cucumbers",
+  se11_desc:"Smoked knuckle, beans, pickles (1000g/250g/100g)",
+  se12_name:"Viennese pork tenderloin schnitzel with coleslaw salad",
+  se12_desc:"Pork tenderloin, mayonnaise, breadcrumbs, eggs (350g/50g/40g/30g)",
+  bu1_name:"4 You Burger",
+  bu1_desc:"Juicy burgers in creamy cheddar sauce with crispy fries",
+  bu2_name:"Voyage Black Angus beef burger drowned in cheddar",
+  bu2_desc:"Beef, bun, tomatoes, bacon, cheddar, onion (150g/80g/30g/20g/20g/15g)",
+  bu3_name:"Black Angus Bacon & Chilli beef burger",
+  bu3_desc:"Beef, bun, bacon, cheddar, tomatoes, jalapeno (150g/80g/20g/20g/20g/15g)",
+  bu4_name:"Double smashed beef burger",
+  bu4_desc:"Beef, bun, cheddar, tomatoes, onion (150g/80g/20g/20g/15g)",
+  bu5_name:"Double mixed beef and crispy chicken burger",
+  bu5_desc:"Chicken, beef, bun, bacon, cheddar, tomatoes, pickles",
+  bu6_name:"French Tacos with crispy chicken, mozzarella and cheddar sauce",
+  bu6_desc:"Crispy chicken, mozzarella, cheddar, corn, tomatoes, tortilla (180g/80g/40g/40g/40g)",
+  bu7_name:"4YOU burger platter (4 Angus burger halves in cheddar sauce)",
+  bu7_desc:"Beef, bun, cheddar, tomatoes, onion (150g/80g/20g/20g/15g)",
+  le1_name:"Bean goulash",
+  le1_desc:"Smoked bacon, smoked sausage, beans, carrots (70g/50g/30g/15g)",
+  le2_name:"Tripe soup",
+  le2_desc:"Beef tripe, sour cream, eggs, carrots (100g/50g/20g/15g)",
+  le3_name:"Country-style vegetable soup",
+  le3_desc:"Carrots, celery, green beans, green peas, cabbage (80g/60g/30g/30g/20g)",
+  le4_name:"Country-style pork soup",
+  le4_desc:"Pork, carrots, celery, green beans, green peas, cabbage",
+  le5_name:"Country-style beef soup",
+  le5_desc:"Beef, carrots, celery, green beans, green peas, cabbage",
+  le6_name:"Cheddar cream soup with broccoli and bacon chips",
+  le6_desc:"Cheddar, broccoli, bacon (100g/80g/30g)",
+  le7_name:"Mushroom cream soup with croutons",
+  le7_desc:"Mushrooms, onion, milk, flour (100g/80g/40g/15g)",
+  vo1_name:"Voyage Platter (4 persons) — 300 LEI",
+  vo1_desc:"Whole smoked pork knuckle, chicken roll stuffed with mushrooms and mozzarella, prosciutto crudo wrapped in bacon, chicken skewers with vegetables, crispy chicken, bone-in pork chop, pork neck. Sides: jacket potatoes, wedges, fried rice. Mixed salad",
+  vo2_name:"Grill Platter (4 persons) — 350 LEI",
+  vo2_desc:"Rib-eye beef steak, grilled mici, grilled pork neck, grilled chicken breast, BBQ pork ribs. Sides: fries, boat potatoes. Sauces: chimichurri, mustard",
+  ma1_name:"Beef marrow bone with toasted bread and garlic yogurt sauce",
+  ma1_desc:"Beef bone, bread, yogurt (250g/180g/80g)",
+  ma2_name:"Steak tartare",
+  ma2_desc:"Beef, eggs, mustard, Worcestershire sauce, ketchup (180g/30g/25g/25g/20g)",
+  ma3_name:"Rib-eye steak on fries with secret sauce",
+  ma3_desc:"Beef steak, potatoes, mustard, honey (250g/180g/40g/25g)",
+  ma4_name:"Slow-cooked beef ribs with crinkle-cut potatoes and gravy sauce",
+  ma4_desc:"Beef ribs, potatoes, sauce (250g/180g/80g)",
+  ma5_name:"Beef tenderloin with camembert wrapped in bacon, golden potatoes, caramelized pear and brown sauce",
+  ma5_desc:"Beef tenderloin, potatoes, camembert, honey (200g/180g/100g/50g)",
+  ma6_name:"Surf 'n' Turf (beef steak with shrimp) on asparagus with green pepper sauce",
+  ma6_desc:"Beef tenderloin, shrimp, cream (200g/150g/35g)",
+  ma7_name:"T-Bone steak with seasoned mushrooms and patatas bravas with green pepper sauce",
+  ma7_desc:"Beef steak, potatoes, mushrooms, cream (400g/180g/150g/20g)",
+  ma8_name:"Australian beef ribeye (including side and sauce of your choice)",
+  ma8_desc:"Beef (250g)",
+  ma9_name:"Tomahawk steak (1kg) with rosemary potatoes, tempura vegetables and brown sauce",
+  ma9_desc:"Beef steak, potatoes, flour (1000g/200g/200g/20g)",
+  sz1_name:"Chicken breast schnitzel",
+  sz1_desc:"Chicken breast, flour, eggs, breadcrumbs (180g/15g/15g/15g)",
+  sz2_name:"Palermo chicken breast",
+  sz2_desc:"Chicken breast, flour, eggs, breadcrumbs, milk (180g/15g/15g/15g/10g)",
+  sz3_name:"Grilled chicken breast",
+  sz3_desc:"Chicken breast (200g)",
+  sz4_name:"Chicken cordon bleu",
+  sz4_desc:"Chicken breast, mozzarella, ham, flour, eggs, breadcrumbs (180g/100g/30g/10g/10g/10g)",
+  sz5_name:"Crispy chicken with fries and white garlic sauce",
+  sz5_desc:"Chicken breast, potatoes, corn flakes, sour cream, eggs, flour, breadcrumbs",
+  sz6_name:"Grilled chicken skewers with vegetables, baked garlic potatoes and tzatziki sauce",
+  sz6_desc:"Chicken breast, potatoes, tzatziki sauce (200g/180g/80g)",
+  sz7_name:"Chicken stuffed with feta, olives, roasted peppers and mashed potatoes with bacon",
+  sz7_desc:"Chicken breast, mashed potatoes, feta, olives, roasted peppers, bacon (180g/180g/60g/30g/30g/30g)",
+  sz8_name:"Voyage schnitzel with Mac'n'Cheese and potato wedges",
+  sz8_desc:"Chicken breast, potatoes, pasta, cheddar (180g/180g/60g/30g)",
+  sz9_name:"Chicken breast gratinated with broccoli, sauteed vegetables and gorgonzola sauce",
+  sz9_desc:"Chicken breast, sauteed vegetables, broccoli, cooking cream, gorgonzola (180g/180g/60g/50g/50g)",
+  sz10_name:"Scored chicken with tomatoes, cheese and bacon, gratinated potatoes and cheddar sauce",
+  sz10_desc:"Chicken breast, gratinated potatoes, cheese, bacon, cheddar sauce",
+  sz11_name:"Chicken roll stuffed with mushrooms, mozzarella and prosciutto crudo, with crinkle-cut potatoes",
+  sz11_desc:"Chicken breast, potatoes, mozzarella, mushrooms, prosciutto crudo (180g/180g/80g/50g/40g)",
+  sz12_name:"Chicken breast stuffed with apples and camembert wrapped in prosciutto crudo with broccoli mashed potatoes",
+  sz12_desc:"Chicken breast, potatoes, cheese mix, bacon, camembert, apples (180g/180g/120g/50g/50g/50g)",
+  sz13_name:"Duck breast with mashed potatoes, braised red cabbage and fruit sauce",
+  sz13_desc:"Duck breast, potatoes, red cabbage, fruit sauce (250g/180g/80g/50g)",
+  el1_name:"Mixed bruschetta",
+  el1_desc:"Bread, tomatoes, guacamole, prosciutto crudo, mozzarella (120g/60g/60g/40g/40g)",
+  el2_name:"Cheese platter (2 persons)",
+  el2_desc:"Mozzarella, emmentaler, brie, camembert, gorgonzola, prosciutto crudo, walnuts, honey (100g/100g/100g/100g/75g)",
+  el3_name:"Breaded cheese with fries and white sauce",
+  el3_desc:"Mozzarella, fries, garlic, sour cream (150g/140g/80g)",
+  el4_name:"Omelette with ham and mozzarella",
+  el4_desc:"Eggs, ham, mozzarella (150g/100g/80g)",
+  el5_name:"Country omelette",
+  el5_desc:"Eggs, sausages, mozzarella, pepper, onion (150g/100g/80g/50g/50g)",
+  el6_name:"Bacon & Eggs with mozzarella and toasted bread",
+  el6_desc:"Eggs, bacon, mozzarella, bread (150g/100g/80g/80g)",
+  sa1_name:"Salad with Panko chicken breast",
+  sa1_desc:"Chicken breast, salad, tomatoes, cucumbers, onion, yogurt, feta (120g/100g/60g/50g/30g/30g/20g)",
+  sa2_name:"Caesar salad",
+  sa2_desc:"Chicken breast, salad, eggs, croutons, sauce (120g/100g/30g/20g/20g)",
+  sa3_name:"Chicken salad with avocado",
+  sa3_desc:"Chicken breast, salad, avocado, mozzarella, olives, cherry tomatoes, mushrooms, honey mustard dressing",
+  sa4_name:"Shrimp salad",
+  sa4_desc:"Shrimp, arugula, iceberg lettuce, avocado, mango, vinaigrette (150g/75g/75g/50g/50g/20g)",
+  sa5_name:"Voyage salad with crispy chicken and yogurt salsa",
+  sa5_desc:"Chicken breast, salad, tomatoes, avocado, mozzarella (120g/100g/75g/75g/50g)",
+  ds1_name:"Tiramisu",
+  ds1_desc:"Ladyfingers, mascarpone, eggs, coffee (65g/45g/35g/25g)",
+  ds2_name:"Profiterole with chocolate, ice cream and whipped cream",
+  ds2_desc:"Profiterole, ice cream, whipped cream (100g/80g/80g)",
+  ds3_name:"Profiterole with fruit, ice cream and whipped cream",
+  ds3_desc:"Profiterole, fruit, ice cream, whipped cream (100g/80g/80g/60g)",
+  ds4_name:"Cheesecake",
+  ds4_desc:"Mascarpone, whipped cream, biscuits, walnuts (75g/45g/50g/30g)",
+  ds5_name:"Chocolate brownie with vanilla ice cream",
+  ds5_desc:"Eggs, flour, butter, milk, ice cream (75g/60g/40g/30g/30g)",
+  ds6_name:"Pancakes with pistachio sauce and mixed chocolate",
+  ds6_desc:"Eggs, chocolate, pistachio, flour, butter, milk (75g/75g/60g/50g/40g/30g)",
+  ds7_name:"Fried papanasi with blueberry sauce and sour cream",
+  ds7_desc:"Cheese, eggs, sour cream, blueberry sauce, flour (100g/60g/50g/50g/25g)"
+});
+
+Object.assign(T.ro, {
+  legal_company_title:"Date companie",
+  legal_contact_title:"Contact legal",
+  legal_links_title:"Linkuri utile",
+  legal_brand_label:"Nume restaurant",
+  legal_brand_value:"Voyage",
+  legal_company_label:"Companie",
+  legal_cui_label:"CUI",
+  legal_reg_label:"Nr. Reg. Com.",
+  legal_city_label:"Sediu",
+  legal_city_value:"Carei, România",
+  legal_address_value:"Str. 1 Decembrie 1918 nr. 6, Carei, Satu Mare, România",
+  footer_privacy:"Politica de confidențialitate",
+  footer_cookies:"Politica de cookies",
+  footer_anpc:"ANPC",
+  footer_odr:"Soluționarea online a litigiilor",
+  footer_privacy_short:"Confidențialitate",
+  footer_cookies_short:"Cookies",
+  footer_gdpr_notice:"Prelucrăm doar datele minime necesare pentru funcționarea site-ului și comunicarea cu clienții. Pentru solicitări GDPR ne puteți scrie la restaurantvoyage2024@gmail.com."
+});
+
+Object.assign(T.hu, {
+  legal_company_title:"Cégadatok",
+  legal_contact_title:"Jogi kapcsolat",
+  legal_links_title:"Hasznos linkek",
+  legal_brand_label:"Étterem neve",
+  legal_brand_value:"Voyage",
+  legal_company_label:"Cég",
+  legal_cui_label:"Adószám",
+  legal_reg_label:"Cégjegyzékszám",
+  legal_city_label:"Székhely",
+  legal_city_value:"Nagykároly, Románia",
+  legal_address_value:"1918 December 1 utca 6., Nagykároly, Szatmár megye, Románia",
+  footer_privacy:"Adatvédelmi szabályzat",
+  footer_cookies:"Cookie szabályzat",
+  footer_anpc:"ANPC",
+  footer_odr:"Online vitarendezés",
+  footer_privacy_short:"Adatvédelem",
+  footer_cookies_short:"Cookie-k",
+  footer_gdpr_notice:"Csak a weboldal működéséhez és a vendégekkel való kapcsolattartáshoz szükséges minimális adatokat kezeljük. GDPR kéréssel a restaurantvoyage2024@gmail.com címen kereshettek minket."
+});
+
+Object.assign(T.en, {
+  legal_company_title:"Company details",
+  legal_contact_title:"Legal contact",
+  legal_links_title:"Useful links",
+  legal_brand_label:"Restaurant name",
+  legal_brand_value:"Voyage",
+  legal_company_label:"Company",
+  legal_cui_label:"VAT code",
+  legal_reg_label:"Trade register no.",
+  legal_city_label:"Registered office",
+  legal_city_value:"Carei, Romania",
+  legal_address_value:"1 Decembrie 1918 Street no. 6, Carei, Satu Mare, Romania",
+  footer_privacy:"Privacy Policy",
+  footer_cookies:"Cookie Policy",
+  footer_anpc:"ANPC",
+  footer_odr:"Online dispute resolution",
+  footer_privacy_short:"Privacy",
+  footer_cookies_short:"Cookies",
+  footer_gdpr_notice:"We process only the minimum data needed for the website to function and to communicate with guests. For GDPR requests, please email restaurantvoyage2024@gmail.com."
+});
+T.ro.footer_copy = "© 2026 Restaurant Voyage. Toate drepturile rezervate.";
+T.hu.footer_copy = "© 2026 Restaurant Voyage. Minden jog fenntartva.";
+T.en.footer_copy = "© 2026 Restaurant Voyage. All rights reserved.";
+
+/* LANGUAGE */
+function setLang(lang) {
+  if (!T[lang]) return;
+  var t = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n');
+    if (t[k] !== undefined) el.textContent = t[k];
+  });
+  document.querySelectorAll('[data-lang]').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    btn.classList.toggle('mlang-active', btn.getAttribute('data-lang') === lang);
+  });
+  document.documentElement.lang = lang;
+}
+
+/* NAVBAR SCROLL */
+window.addEventListener('scroll', function() {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* HAMBURGER */
+var hamburger = document.getElementById('hamburger');
+var mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', function() {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+/* ALL BUTTONS WITH data-lang (event delegation on document) */
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-lang]');
+  if (btn) {
+    setLang(btn.getAttribute('data-lang'));
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+});
+
+/* MENU TABS (event delegation on the tabs container) */
+document.getElementById('menuTabs').addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-tab]');
+  if (!btn) return;
+  var id = btn.getAttribute('data-tab');
+  document.querySelectorAll('.menu-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.menu-tab').forEach(function(t) { t.classList.remove('active'); });
+  var panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+  btn.classList.add('active');
+  if (window.innerWidth <= 600) {
+    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+});
+
+/* SCROLL REVEAL */
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+setLang('hu');
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

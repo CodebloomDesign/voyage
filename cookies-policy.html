@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Voyage Restaurant - Politica de cookies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Cinzel:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --navy:#0b1120; --navy-mid:#111b31; --gold:#c9a84c; --cream:#f5f0e8; --cream-dim:#c8bfaa; --white:#fff;
+  --ff-display:'Cinzel',serif; --ff-serif:'Cormorant Garamond',serif; --ff-sans:'Raleway',sans-serif;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:radial-gradient(circle at top, #162240 0%, #0b1120 58%); color:var(--cream); font-family:var(--ff-serif); }
+.topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:22px 20px; max-width:1100px; margin:0 auto; }
+.back { color:var(--gold); font-family:var(--ff-sans); letter-spacing:2px; text-transform:uppercase; font-size:12px; text-decoration:none; }
+.langs { display:flex; gap:10px; }
+.langs button { background:transparent; color:var(--cream-dim); border:1px solid rgba(201,168,76,.3); padding:8px 12px; font-family:var(--ff-sans); letter-spacing:2px; cursor:pointer; }
+.langs button.active { color:var(--navy); background:var(--gold); }
+.main { max-width:1100px; margin:0 auto; padding:24px 20px 70px; }
+.hero { margin-bottom:30px; }
+.kicker { color:var(--gold); font-family:var(--ff-sans); letter-spacing:4px; text-transform:uppercase; font-size:11px; margin-bottom:12px; }
+h1 { font-family:var(--ff-display); font-weight:400; font-size:clamp(2rem,4vw,3.2rem); margin:0 0 16px; }
+.lead { color:var(--cream-dim); font-size:1.15rem; line-height:1.7; max-width:760px; }
+.grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+.card { background:rgba(17,27,49,.72); border:1px solid rgba(201,168,76,.14); border-radius:20px; padding:24px; }
+.card h2 { margin:0 0 14px; font-family:var(--ff-display); font-size:1.35rem; font-weight:400; color:var(--white); }
+.card p, .card li { color:var(--cream); font-size:1.05rem; line-height:1.7; }
+.card ul { margin:0; padding-left:20px; }
+.footer-note { margin-top:26px; color:var(--cream-dim); font-family:var(--ff-sans); font-size:12px; letter-spacing:1px; }
+@media (max-width: 800px) { .grid { grid-template-columns:1fr; } .topbar { flex-direction:column; align-items:flex-start; } }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="back" href="index.html" data-i18n="back">← Înapoi la site</a>
+    <div class="langs">
+      <button type="button" data-lang="ro">RO</button>
+      <button type="button" data-lang="hu">HU</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+  <main class="main">
+    <section class="hero">
+      <div class="kicker" data-i18n="kicker">Informații legale</div>
+      <h1 data-i18n="title">Politica de cookies</h1>
+      <p class="lead" data-i18n="lead">Această pagină explică ce sunt cookie-urile, ce rol minim pot avea pe website-ul Voyage Restaurant și cum le puteți controla din browserul dumneavoastră.</p>
+    </section>
+    <section class="grid">
+      <article class="card">
+        <h2 data-i18n="what_title">Ce sunt cookie-urile</h2>
+        <p data-i18n="what_text">Cookie-urile sunt fișiere mici stocate pe dispozitivul dumneavoastră atunci când vizitați un website. Ele pot ajuta la funcționarea corectă a paginilor, la memorarea unor preferințe tehnice și la îmbunătățirea experienței de navigare.</p>
+      </article>
+      <article class="card">
+        <h2 data-i18n="essential_title">Cookie-uri esențiale</h2>
+        <p data-i18n="essential_text">Acest website static poate folosi doar cookie-uri strict necesare pentru funcționare tehnică, securitate și livrarea corectă a conținutului. Fără acestea, unele părți ale site-ului pot să nu funcționeze corect.</p>
+      </article>
+      <article class="card">
+        <h2 data-i18n="analytics_title">Analytică și profilare</h2>
+        <p data-i18n="analytics_text">Website-ul este conceput pentru utilizare minimală. Dacă nu sunt integrate instrumente de analiză suplimentare, nu folosim cookie-uri de marketing sau profilare. Dacă vor fi adăugate în viitor servicii de analiză, această pagină trebuie actualizată în consecință.</p>
+      </article>
+      <article class="card">
+        <h2 data-i18n="control_title">Controlul utilizatorului</h2>
+        <ul>
+          <li data-i18n="control_1">puteți șterge sau bloca cookie-urile din setările browserului;</li>
+          <li data-i18n="control_2">puteți configura browserul să vă notifice înainte de stocarea cookie-urilor;</li>
+          <li data-i18n="control_3">dezactivarea cookie-urilor esențiale poate afecta funcționarea site-ului.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2 data-i18n="contact_title">Contact</h2>
+        <p data-i18n="contact_text">Pentru întrebări despre utilizarea cookie-urilor sau protecția datelor, ne puteți scrie la restaurantvoyage2024@gmail.com.</p>
+      </article>
+    </section>
+    <div class="footer-note" data-i18n="updated">Document informativ pentru website-ul static Voyage Restaurant.</div>
+  </main>
+<script>
+var T = {
+  ro: {
+    back:'← Înapoi la site', kicker:'Informații legale', title:'Politica de cookies',
+    lead:'Această pagină explică ce sunt cookie-urile, ce rol minim pot avea pe website-ul Voyage Restaurant și cum le puteți controla din browserul dumneavoastră.',
+    what_title:'Ce sunt cookie-urile', what_text:'Cookie-urile sunt fișiere mici stocate pe dispozitivul dumneavoastră atunci când vizitați un website. Ele pot ajuta la funcționarea corectă a paginilor, la memorarea unor preferințe tehnice și la îmbunătățirea experienței de navigare.',
+    essential_title:'Cookie-uri esențiale', essential_text:'Acest website static poate folosi doar cookie-uri strict necesare pentru funcționare tehnică, securitate și livrarea corectă a conținutului. Fără acestea, unele părți ale site-ului pot să nu funcționeze corect.',
+    analytics_title:'Analytică și profilare', analytics_text:'Website-ul este conceput pentru utilizare minimală. Dacă nu sunt integrate instrumente de analiză suplimentare, nu folosim cookie-uri de marketing sau profilare. Dacă vor fi adăugate în viitor servicii de analiză, această pagină trebuie actualizată în consecință.',
+    control_title:'Controlul utilizatorului', control_1:'puteți șterge sau bloca cookie-urile din setările browserului;', control_2:'puteți configura browserul să vă notifice înainte de stocarea cookie-urilor;', control_3:'dezactivarea cookie-urilor esențiale poate afecta funcționarea site-ului.',
+    contact_title:'Contact', contact_text:'Pentru întrebări despre utilizarea cookie-urilor sau protecția datelor, ne puteți scrie la restaurantvoyage2024@gmail.com.',
+    updated:'Document informativ pentru website-ul static Voyage Restaurant.'
+  },
+  hu: {
+    back:'← Vissza az oldalra', kicker:'Jogi információk', title:'Cookie szabályzat',
+    lead:'Ez az oldal bemutatja, mik azok a cookie-k, milyen minimális szerepük lehet a Voyage Restaurant weboldalán, és hogyan tudjátok őket a böngészőben kezelni.',
+    what_title:'Mik azok a cookie-k', what_text:'A cookie-k kis fájlok, amelyek a készüléketeken tárolódnak, amikor meglátogattok egy weboldalt. Segíthetnek az oldalak megfelelő működésében, technikai beállítások megjegyzésében és a böngészési élmény javításában.',
+    essential_title:'Alapvető cookie-k', essential_text:'Ez a statikus weboldal csak a működéshez, biztonsághoz és a tartalom helyes megjelenítéséhez szigorúan szükséges cookie-kat használhat. Ezek nélkül az oldal egyes részei nem működhetnek megfelelően.',
+    analytics_title:'Analitika és profilozás', analytics_text:'A weboldal minimális használatra van kialakítva. Ha nincs külön analitikai eszköz beépítve, nem használunk marketing- vagy profilozó cookie-kat. Ha később ilyen szolgáltatás kerül be, ezt az oldalt frissíteni kell.',
+    control_title:'Felhasználói beállítások', control_1:'a cookie-k törölhetők vagy blokkolhatók a böngésző beállításaiban;', control_2:'a böngésző beállítható úgy, hogy a cookie-k tárolása előtt értesítést adjon;', control_3:'az alapvető cookie-k kikapcsolása ronthatja az oldal működését.',
+    contact_title:'Kapcsolat', contact_text:'A cookie-k vagy az adatvédelem használatával kapcsolatos kérdések esetén írjatok nekünk a restaurantvoyage2024@gmail.com címre.',
+    updated:'Tájékoztató dokumentum a Voyage Restaurant statikus weboldalához.'
+  },
+  en: {
+    back:'← Back to website', kicker:'Legal information', title:'Cookie Policy',
+    lead:'This page explains what cookies are, what minimal role they may have on the Voyage Restaurant website, and how you can control them in your browser.',
+    what_title:'What cookies are', what_text:'Cookies are small files stored on your device when you visit a website. They can help pages function properly, remember technical preferences, and improve the browsing experience.',
+    essential_title:'Essential cookies', essential_text:'This static website may use only cookies that are strictly necessary for technical operation, security, and proper content delivery. Without them, some parts of the site may not work correctly.',
+    analytics_title:'Analytics and profiling', analytics_text:'The website is designed for minimal use. If no extra analytics tools are integrated, we do not use marketing or profiling cookies. If analytics services are added in the future, this page should be updated accordingly.',
+    control_title:'User controls', control_1:'you can delete or block cookies from your browser settings;', control_2:'you can configure your browser to notify you before cookies are stored;', control_3:'disabling essential cookies may affect the proper functioning of the site.',
+    contact_title:'Contact', contact_text:'For questions about cookies or data protection, please contact us at restaurantvoyage2024@gmail.com.',
+    updated:'Informational document for the Voyage Restaurant static website.'
+  }
+};
+function setLang(lang) {
+  var t = T[lang];
+  if (!t) return;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll('[data-lang]').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+}
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-lang]');
+  if (btn) setLang(btn.getAttribute('data-lang'));
+});
+setLang('ro');
+</script>
+</body>
+</html>
